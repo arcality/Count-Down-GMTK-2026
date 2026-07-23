@@ -5,6 +5,8 @@ const SPEED: float = 100
 @onready var window_width = get_viewport().get_visible_rect().size.x
 @onready var window_height = get_viewport().get_visible_rect().size.y
 
+signal scared
+
 var bounds: Area2D
 
 enum States {
@@ -39,22 +41,22 @@ func _process(delta: float) -> void:
 func landing(delta: float) -> void:
 	# move toward destination
 	position = position.move_toward(landing_destination, SPEED*delta)
-	print(position)
+	#print(position)
 
 	# switch to GROUNDED when destination is reached
 	if position.is_equal_approx(landing_destination):
 		state = States.GROUNDED
 
-	
 
-	
+
+
 
 func grounded(_delta: float) -> void:
 	pass
 	
 
 func flying_away(delta: float) -> void:
-	print(position)
+	#print(position)
 	if retreat_vector == null:
 		retreat_vector = Vector2(SPEED*cos(-PI/4),SPEED*sin(-PI/4))
 	position+=retreat_vector*delta
@@ -63,9 +65,13 @@ func flying_away(delta: float) -> void:
 	pass
 	
 
+func scare() -> void:
+	state = States.FLYING_AWAY
+	scared.emit()
+	
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if state == States.GROUNDED and body is Player:
-		state = States.FLYING_AWAY
+		scare()
 		#queue_free()
 		

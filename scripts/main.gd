@@ -11,6 +11,8 @@ extends Node
 var bird_scene = preload("res://scenes/bird.tscn")
 var random = RandomNumberGenerator.new()
 
+var scared_bird_ct: int = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	timer.start()
@@ -47,6 +49,12 @@ func spawn_bird() -> void:
 	#new_bird.landing_destination = Vector2(240,135)
 	
 	new_bird.bounds = $LaunchPad.bounds
+	new_bird.scared.connect(_on_bird_scared)
 		
 	print(new_bird.landing_destination)
 	add_child(new_bird)
+
+func _on_bird_scared() -> void:
+	scared_bird_ct += 1
+	print(scared_bird_ct)
+	
