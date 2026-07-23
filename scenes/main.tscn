@@ -9,6 +9,6 @@ script = ExtResource("1_sugp2")
 
 [node name="Player" parent="." unique_id=1211655326 instance=ExtResource("1_o5qli")]
 unique_name_in_owner = true
-position = Vector2(574, 183)
+position = Vector2(223, 154)
 
 [node name="LaunchPad" parent="." unique_id=556309248 instance=ExtResource("2_0wfyh")]
