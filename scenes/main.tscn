@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://vpt3o1e5p7t5"]
 
 [ext_resource type="PackedScene" uid="uid://cb3dertjap4to" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://b55o21qw2uf76" path="res://scenes/launch_pad.tscn" id="2_0wfyh"]
 
 [node name="Main" type="Node" unique_id=162972]
 
 [node name="Player" parent="." unique_id=1211655326 instance=ExtResource("1_o5qli")]
 position = Vector2(574, 183)
+
+[node name="LaunchPad" parent="." unique_id=556309248 instance=ExtResource("2_0wfyh")]
