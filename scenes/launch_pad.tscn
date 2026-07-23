@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://b55o21qw2uf76"]
 
+[ext_resource type="Script" uid="uid://dp3g3ru3el20f" path="res://scripts/launch_pad.gd" id="1_rf4ly"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_il8yd"]
 size = Vector2(20, 270)
 
@@ -12,7 +14,11 @@ size = Vector2(480, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rf4ly"]
 size = Vector2(480, 20)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h0ex0"]
+size = Vector2(480, 270)
+
 [node name="LaunchPad" type="Node2D" unique_id=556309248]
+script = ExtResource("1_rf4ly")
 
 [node name="LeftBorder" type="StaticBody2D" parent="." unique_id=788093351]
 position = Vector2(0, 135)
@@ -37,3 +43,9 @@ position = Vector2(240, 270)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomBorder" unique_id=121288873]
 shape = SubResource("RectangleShape2D_rf4ly")
+
+[node name="ScreenBounds" type="Area2D" parent="." unique_id=1408091274]
+position = Vector2(240, 135)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScreenBounds" unique_id=328920607]
+shape = SubResource("RectangleShape2D_h0ex0")

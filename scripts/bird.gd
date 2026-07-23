@@ -2,6 +2,11 @@ class_name Bird extends Node2D
 
 const SPEED: float = 100
 
+@onready var window_width = get_viewport().get_visible_rect().size.x
+@onready var window_height = get_viewport().get_visible_rect().size.y
+
+var bounds: Area2D
+
 enum States {
 	LANDING,
 	GROUNDED,
@@ -15,6 +20,7 @@ var retreat_vector = null #movement vector
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	position = starting_location
 	print("hello!")
 
 
@@ -52,6 +58,8 @@ func flying_away(delta: float) -> void:
 	if retreat_vector == null:
 		retreat_vector = Vector2(SPEED*cos(-PI/4),SPEED*sin(-PI/4))
 	position+=retreat_vector*delta
+	if not $Area2D.overlaps_area(bounds):
+		queue_free()
 	pass
 	
 
