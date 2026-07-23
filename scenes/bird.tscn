@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c0aygdx7wqldr"]
 
 [ext_resource type="Script" uid="uid://dtwca8os0hyyo" path="res://scripts/bird.gd" id="1_kqhkv"]
+[ext_resource type="Texture2D" uid="uid://c3tf4jv3k6yfg" path="res://assets/art/bird.png" id="2_3po83"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h0ex0"]
 
@@ -11,5 +12,9 @@ script = ExtResource("1_kqhkv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=619971655]
 shape = SubResource("CircleShape2D_h0ex0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=677567925]
+texture_filter = 2
+texture = ExtResource("2_3po83")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

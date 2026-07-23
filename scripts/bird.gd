@@ -1,6 +1,6 @@
 class_name Bird extends Node2D
 
-const SPEED = 20
+const SPEED: float = 100
 
 enum States {
 	LANDING,
@@ -9,17 +9,18 @@ enum States {
 }
 
 @export var state = States.LANDING
-var starting_location = Vector2(0,0)
-var landing_destination = Vector2(0,0)
+@export var starting_location: Vector2 = Vector2(0,0)
+@export var landing_destination: Vector2 = Vector2(0,0)
 var retreat_vector = null #movement vector
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	print("hello!")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
 	if state == States.LANDING:
 		landing(delta)
 	elif state == States.GROUNDED:
@@ -29,8 +30,12 @@ func _process(delta: float) -> void:
 	pass
 
 
-func landing(_delta: float) -> void:
-	position.move_toward(landing_destination, SPEED)
+func landing(delta: float) -> void:
+	# move toward destination
+	position = position.move_toward(landing_destination, SPEED*delta)
+	print(position)
+
+	# switch to GROUNDED when destination is reached
 	if position.is_equal_approx(landing_destination):
 		state = States.GROUNDED
 
@@ -42,10 +47,11 @@ func grounded(_delta: float) -> void:
 	pass
 	
 
-func flying_away(_delta: float) -> void:
+func flying_away(delta: float) -> void:
+	print(position)
 	if retreat_vector == null:
-		retreat_vector = Vector2(SPEED*cos(PI/4),SPEED*cos(PI/4))
-	position+=retreat_vector
+		retreat_vector = Vector2(SPEED*cos(-PI/4),SPEED*sin(-PI/4))
+	position+=retreat_vector*delta
 	pass
 	
 
@@ -53,4 +59,5 @@ func flying_away(_delta: float) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if state == States.GROUNDED and body is Player:
 		state = States.FLYING_AWAY
+		#queue_free()
 		

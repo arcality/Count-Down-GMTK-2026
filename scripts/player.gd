@@ -1,9 +1,9 @@
 class_name Player extends CharacterBody2D
 
 
-const SPEED = 300.0
-const ACCELERATION = 16
-const DECELERATION = 4
+const SPEED: float = 300.0
+const ACCELERATION: float = 16 * 60
+const DECELERATION: float = 4 * 60
 
 
 func _physics_process(delta: float) -> void:
@@ -15,8 +15,8 @@ func _physics_process(delta: float) -> void:
 		#velocity.y = direction.y * SPEED
 		#velocity.x = move_toward(velocity.x, direction.x * SPEED, ACCELERATION);
 		#velocity.y = move_toward(velocity.y, direction.y * SPEED, ACCELERATION);
-		velocity.x += direction.x * ACCELERATION
-		velocity.y += direction.y * ACCELERATION
+		velocity.x += direction.x * ACCELERATION * delta
+		velocity.y += direction.y * ACCELERATION * delta
 	#else:
 	#velocity.x = move_toward(velocity.x, 0, DECELERATION)
 	#velocity.y = move_toward(velocity.y, 0, DECELERATION)
