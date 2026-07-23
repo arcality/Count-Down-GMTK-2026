@@ -1,3 +1,8 @@
 [gd_scene format=3 uid="uid://vpt3o1e5p7t5"]
 
+[ext_resource type="PackedScene" uid="uid://b4vsmy3qoah84" path="res://scenes/player.tscn" id="1_o5qli"]
+
 [node name="Main" type="Node" unique_id=162972]
+
+[node name="Player" parent="." unique_id=1211655326 instance=ExtResource("1_o5qli")]
+position = Vector2(578, 236)
