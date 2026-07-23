@@ -5,11 +5,15 @@ extends Node
 @onready var window_width = get_viewport().get_visible_rect().size.x
 @onready var window_height = get_viewport().get_visible_rect().size.y
 
+@onready var time_display = $CanvasLayer/TimeDisplay
+@onready var timer = $Timer
+
 var bird_scene = preload("res://scenes/bird.tscn")
 var random = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	timer.start()
 	#print(window_width)
 	#print(window_height)
 	#print(get_window().size)
@@ -27,6 +31,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("debug_button"):
 		spawn_bird()
+	time_display.text = str(int(timer.time_left))
 
 
 
