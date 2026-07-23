@@ -1,5 +1,7 @@
 class_name Bird extends Node2D
 
+const SPEED = 20
+
 enum States {
 	LANDING,
 	GROUNDED,
@@ -7,9 +9,9 @@ enum States {
 }
 
 @export var state = States.LANDING
-var starting_location = Vector2i(0,0)
-var landing_destination = Vector2i(0,0)
-var retreat_direction = null
+var starting_location = Vector2(0,0)
+var landing_destination = Vector2(0,0)
+var retreat_vector = null #movement vector
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,17 +29,23 @@ func _process(delta: float) -> void:
 	pass
 
 
-func landing(delta: float) -> void:
+func landing(_delta: float) -> void:
+	position.move_toward(landing_destination, SPEED)
+	if position.is_equal_approx(landing_destination):
+		state = States.GROUNDED
+
+	
+
+	
+
+func grounded(_delta: float) -> void:
 	pass
 	
 
-func grounded(delta: float) -> void:
-	pass
-	
-
-func flying_away(delta: float) -> void:
-	if retreat_direction == null:
-		retreat_direction = Vector2()
+func flying_away(_delta: float) -> void:
+	if retreat_vector == null:
+		retreat_vector = Vector2(SPEED*cos(PI/4),SPEED*cos(PI/4))
+	position+=retreat_vector
 	pass
 	
 
