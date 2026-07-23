@@ -1,10 +1,15 @@
 [gd_scene format=3 uid="uid://c0aygdx7wqldr"]
 
+[ext_resource type="Script" uid="uid://dtwca8os0hyyo" path="res://scripts/bird.gd" id="1_kqhkv"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_h0ex0"]
 
 [node name="Bird" type="Node2D" unique_id=1378970072]
+script = ExtResource("1_kqhkv")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1247547404]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=619971655]
 shape = SubResource("CircleShape2D_h0ex0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
