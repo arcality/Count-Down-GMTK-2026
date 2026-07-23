@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b4vsmy3qoah84"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h0ex0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u8vuu"]
+
+[node name="Player" type="CharacterBody2D" unique_id=1211655326]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1491246741]
+shape = SubResource("CircleShape2D_h0ex0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1194371272]
+sprite_frames = SubResource("SpriteFrames_u8vuu")
