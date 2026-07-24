@@ -76,8 +76,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if state == States.GROUNDED and body is Player:
 		scare()
 		#queue_free()
-		
-		
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if state != States.FLYING_AWAY and area.get_parent().get_parent() is Player:
+		scare()
+
+
 
 func _on_caught() -> void:
 	scare()

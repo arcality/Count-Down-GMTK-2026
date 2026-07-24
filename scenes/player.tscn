@@ -10,6 +10,12 @@ radius = 2.0
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_h0ex0"]
 points = PackedVector2Array(10, 7, 10, -7, 0, 0)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3vyb7"]
+radius = 75.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ixln"]
+radius = 37.93
+
 [node name="Player" type="CharacterBody2D" unique_id=1211655326]
 collision_layer = 3
 script = ExtResource("1_3vyb7")
@@ -29,5 +35,22 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Net/Area2D" unique_id=941080575]
 shape = SubResource("ConvexPolygonShape2D_h0ex0")
 disabled = true
+
+[node name="Airhorn" type="Node2D" parent="." unique_id=1187505450]
+
+[node name="Hitbox" type="Area2D" parent="Airhorn" unique_id=1267400589]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Airhorn/Hitbox" unique_id=1712500401]
+shape = SubResource("CircleShape2D_3vyb7")
+disabled = true
+
+[node name="Flail" type="Node2D" parent="." unique_id=1236758814]
+
+[node name="Hitbox" type="Area2D" parent="Flail" unique_id=1797395548]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flail/Hitbox" unique_id=1290859443]
+shape = SubResource("CircleShape2D_5ixln")
 
 [connection signal="area_entered" from="Net/Area2D" to="." method="_on_net_area_entered"]

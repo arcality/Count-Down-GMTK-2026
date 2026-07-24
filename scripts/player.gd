@@ -9,8 +9,12 @@ const DECELERATION: float = 4 * 60
 var can_move: bool = false
 
 var net_duration: float = 0.5
-var net_cooldown:float = 1.2
-var net_ready:bool = true
+var net_cooldown: float = 1.2
+var net_ready: bool = true
+
+var airhorn_duration: float = 1.1
+var airhorn_cooldown: float = 5.5
+var airhorn_ready: bool = true
 
 func _physics_process(delta: float) -> void:
 	
@@ -23,6 +27,9 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("net") and net_ready:
 		swing_net()
+	
+	if Input.is_action_just_pressed("airhorn") and airhorn_ready:
+		use_airhorn()
 	
 	if direction:
 		#velocity.x = direction.x * SPEED
@@ -40,21 +47,37 @@ func _physics_process(delta: float) -> void:
 	if can_move:
 		move_and_slide()
 
+
 func swing_net() -> void:
 	$Net/Area2D/CollisionShape2D.disabled = false
-	var net_swing_timer = get_tree().create_timer(net_duration)
+	var net_swing_timer := get_tree().create_timer(net_duration)
 	net_swing_timer.timeout.connect(_on_net_swing_end)
 	
 	net_ready = false
-	var net_cooldown_timer = get_tree().create_timer(net_cooldown)
+	var net_cooldown_timer := get_tree().create_timer(net_cooldown)
 	net_cooldown_timer.timeout.connect(_on_net_cooldown_end)
-
 
 func _on_net_swing_end() -> void:
 	$Net/Area2D/CollisionShape2D.disabled = true
 
 func _on_net_cooldown_end() -> void:
 	net_ready = true
+
+
+func use_airhorn() -> void:
+	$Airhorn/Hitbox/CollisionShape2D.disabled = false
+	var airhorn_use_timer := get_tree().create_timer(airhorn_duration)
+	airhorn_use_timer.timeout.connect(_on_airhorn_use_end)
+	
+	airhorn_ready = false
+	var airhorn_cooldown_timer := get_tree().create_timer(airhorn_cooldown)
+	airhorn_cooldown_timer.timeout.connect(_on_airhorn_cooldown_end)
+
+func _on_airhorn_use_end() -> void:
+	$Airhorn/Hitbox/CollisionShape2D.disabled = true
+	
+func _on_airhorn_cooldown_end() -> void:
+	airhorn_ready = true
 
 
 func _on_level_end() -> void:
