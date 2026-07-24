@@ -42,6 +42,9 @@ func _process(_delta: float) -> void:
 	if game_state == GameState.PLAYING_LEVEL:
 		if Input.is_action_just_pressed("debug_button"):
 			spawn_bird()
+		if random.randi_range(0,100) == 0:
+			spawn_bird()
+			
 	
 	time_display.text = str(int(timer.time_left))
 
@@ -75,7 +78,7 @@ func display_stats_screen() -> void:
 
 
 func spawn_bird() -> void:
-	if timer.time_left <= 5:
+	if timer.time_left <= 10:
 		return
 	var new_bird: Bird = bird_scene.instantiate()
 	if random.randi_range(0,1) == 0:
