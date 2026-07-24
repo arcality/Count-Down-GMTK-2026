@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://e1q8n26qpyl4"]
+
+[ext_resource type="Script" uid="uid://8rqfkbdy6uns" path="res://scripts/stats_screen.gd" id="1_2iv5a"]
+
+[node name="StatsScreen" type="CanvasLayer" unique_id=582774533]
+script = ExtResource("1_2iv5a")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=382946121]
+
+[node name="BirdsSavedLabel" type="Label" parent="." unique_id=1648751316]
+offset_left = 91.0
+offset_top = 93.0
+offset_right = 183.0
+offset_bottom = 116.0
+text = "Placeholder"
+horizontal_alignment = 1
+vertical_alignment = 1

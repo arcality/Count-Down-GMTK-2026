@@ -1,6 +1,7 @@
 class_name Bird extends Node2D
 
 const SPEED: float = 100
+const RETREAT_SPEED = 200
 
 @onready var window_width = get_viewport().get_visible_rect().size.x
 @onready var window_height = get_viewport().get_visible_rect().size.y
@@ -58,7 +59,7 @@ func grounded(_delta: float) -> void:
 func flying_away(delta: float) -> void:
 	#print(position)
 	if retreat_vector == null:
-		retreat_vector = Vector2(SPEED*cos(-PI/4),SPEED*sin(-PI/4))
+		retreat_vector = Vector2(RETREAT_SPEED*cos(-PI/4),RETREAT_SPEED*sin(-PI/4))
 	position+=retreat_vector*delta
 	if not $Area2D.overlaps_area(bounds):
 		queue_free()

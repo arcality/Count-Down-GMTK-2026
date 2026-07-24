@@ -5,6 +5,7 @@ const SPEED: float = 300.0
 const ACCELERATION: float = 16 * 60
 const DECELERATION: float = 4 * 60
 
+var can_move: bool = true
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -24,3 +25,7 @@ func _physics_process(delta: float) -> void:
 	velocity.y = velocity.y/1.17
 
 	move_and_slide()
+
+
+func _on_level_end() -> void:
+	velocity=Vector2(0,0)
