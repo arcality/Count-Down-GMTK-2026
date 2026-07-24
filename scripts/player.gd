@@ -20,6 +20,8 @@ var flail_duration: float = 0.7
 var flail_cooldown: float = 0.2
 var flail_ready: bool = true
 
+var spawn_position := Vector2(240, 210)
+
 func _physics_process(delta: float) -> void:
 	
 	# Get the input direction and handle the movement/deceleration.
@@ -54,6 +56,10 @@ func _physics_process(delta: float) -> void:
 
 	if can_move:
 		move_and_slide()
+
+
+func respawn() -> void:
+	position = spawn_position
 
 
 func swing_net() -> void:

@@ -52,9 +52,12 @@ func _process(_delta: float) -> void:
 func start_level() -> void:
 	game_state = GameState.PLAYING_LEVEL
 	print("start level")
-	timer.start()
+	
 	%Player.can_move = true
-	scared_bird_ct = false
+	%Player.respawn()
+
+	timer.start()
+	scared_bird_ct = 0
 	for bird in get_tree().get_nodes_in_group("birds"):
 		bird.queue_free()
 	

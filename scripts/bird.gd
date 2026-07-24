@@ -52,7 +52,7 @@ func _process(delta: float) -> void:
 func _on_flap_end() -> void:
 	if state != States.GROUNDED:
 		$FlappingSound.play()
-	var flap_timer := get_tree().create_timer( flap_speed)
+	var flap_timer := get_tree().create_timer(flap_speed)
 	flap_timer.timeout.connect(_on_flap_end)
 
 
@@ -102,10 +102,12 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 
 
 func _on_caught() -> void:
-	scared.emit()
+	if state != States.FLYING_AWAY:
+		scared.emit()
 	$FlappingSound.volume_db = -80.0
 	$Sprite2D.hide()
+	$Area2D/CollisionShape2D.disabled = true
 	$CatchSound.play()
 	await $CatchSound.finished
 	queue_free()
-	pass
+	

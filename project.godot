@@ -77,10 +77,12 @@ flail={
 
 [layer_names]
 
-2d_physics/layer_1="collision"
+2d_physics/layer_1="player collision"
 2d_physics/layer_2="scare"
 2d_physics/layer_3="net"
-2d_physics/layer_4="bird_bounds"
+2d_physics/layer_4="bird bounds"
+2d_physics/layer_5="bird collisions"
+2d_physics/layer_9="Layer 9"
 
 [physics]
 
