@@ -22,14 +22,19 @@ var flail_ready: bool = true
 
 var spawn_position := Vector2(240, 210)
 
+# is never (0, 0)
+var facing_direction := Vector2(0,-1)
+
 func _physics_process(delta: float) -> void:
 	
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-
+	# get movement direction from input
 	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	# update the direction the player is facing
+	if direction != Vector2(0, 0):
+		facing_direction = direction
 	
-	net.rotation = direction.angle()
+	# update where the net is facing
+	net.rotation = facing_direction.angle()
 	
 	if Input.is_action_just_pressed("net") and net_ready:
 		swing_net()
@@ -37,7 +42,6 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("airhorn") and airhorn_ready:
 		use_airhorn()
 	
-	print(flail_ready)
 	if Input.is_action_just_pressed("flail") and flail_ready:
 		flail()
 	

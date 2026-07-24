@@ -52,7 +52,7 @@ texture = ExtResource("2_3po83")
 [node name="FlappingSound" type="AudioStreamPlayer2D" parent="." unique_id=73784802]
 stream = SubResource("AudioStreamRandomizer_h0ex0")
 volume_db = 2.43
-pitch_scale = 1.52
+pitch_scale = 1.24
 max_polyphony = 4
 
 [node name="CatchSound" type="AudioStreamPlayer2D" parent="." unique_id=458282332]
