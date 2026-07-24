@@ -26,6 +26,9 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func swing_net() -> void:
+	pass
+
 
 func _on_level_end() -> void:
 	velocity=Vector2(0,0)

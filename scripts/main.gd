@@ -16,15 +16,14 @@ var scared_bird_ct: int = 0
 
 enum GameState {
 	PLAYING_LEVEL,
-	TITLE_SCREEN,
-	UPGRADES
+	TITLE_SCREEN
 }
 
 var game_state = GameState.TITLE_SCREEN
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	start_level()
+	#start_level()
 
 	#print(window_width)
 	#print(window_height)
@@ -40,15 +39,21 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("debug_button"):
-		spawn_bird()
+	if game_state == GameState.PLAYING_LEVEL:
+		if Input.is_action_just_pressed("debug_button"):
+			spawn_bird()
+	
 	time_display.text = str(int(timer.time_left))
 
 
 func start_level() -> void:
-	timer.start()
 	game_state = GameState.PLAYING_LEVEL
+	print("start level")
+	timer.start()
 	%Player.can_move = true
+	scared_bird_ct = false
+	for bird in get_tree().get_nodes_in_group("birds"):
+		bird.queue_free()
 	
 
 func end_level() -> void:
@@ -57,9 +62,12 @@ func end_level() -> void:
 	
 	
 func display_stats_screen() -> void:
-	#print("skibidi")
+	# update stats
 	$StatsScreen.set_birds_saved(scared_bird_ct)
+	
+	# stats screen bounce animation
 	var temp_tween = get_tree().create_tween()
+	temp_tween.set_ease(Tween.EASE_OUT)
 	temp_tween.set_trans(Tween.TRANS_BOUNCE)
 	temp_tween.tween_property($StatsScreen, "offset", Vector2(0,0), 2.0)
 	
@@ -84,6 +92,7 @@ func spawn_bird() -> void:
 		
 	print(new_bird.landing_destination)
 	add_child(new_bird)
+	
 
 func _on_bird_scared() -> void:
 	scared_bird_ct += 1
@@ -92,3 +101,24 @@ func _on_bird_scared() -> void:
 
 func _on_timer_timeout() -> void:
 	end_level()
+
+
+func _on_stats_screen_retry_button_down() -> void:
+	start_level()
+	var temp_tween = get_tree().create_tween()
+	temp_tween.tween_property($StatsScreen, "offset", Vector2(0,-window_height), 1.0)
+	
+
+
+func _on_stats_screen_main_menu_button_down() -> void:
+	$"Title Screen".show()
+	game_state = GameState.TITLE_SCREEN
+	$"Title Screen/Button".disabled = false
+	$StatsScreen.offset = Vector2(0,-window_height)
+	pass # Replace with function body.
+
+
+func _on_title_screen_play_button_down() -> void:
+	$"Title Screen".hide()
+	$"Title Screen/Button".disabled = true
+	start_level()

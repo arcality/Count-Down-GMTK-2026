@@ -25,6 +25,7 @@ var retreat_vector = null #movement vector
 func _ready() -> void:
 	position = starting_location
 	print("hello!")
+	add_to_group("birds")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

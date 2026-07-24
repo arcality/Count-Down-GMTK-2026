@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bcgk1ejtddljj"]
+
+[ext_resource type="Script" uid="uid://b04grcdcjojvd" path="res://scripts/title_screen.gd" id="1_fgkus"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tbgi4"]
+font_size = 27
+
+[node name="Title Screen" type="CanvasLayer" unique_id=118377000]
+script = ExtResource("1_fgkus")
+
+[node name="Label" type="Label" parent="." unique_id=1849453135]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -49.5
+offset_top = 58.0
+offset_right = 49.5
+offset_bottom = 81.0
+grow_horizontal = 2
+text = "Taking Flight"
+label_settings = SubResource("LabelSettings_tbgi4")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=1936603464]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = 32.5
+offset_right = 45.0
+offset_bottom = 63.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+text = "Play"
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
