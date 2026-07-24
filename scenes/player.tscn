@@ -49,8 +49,11 @@ disabled = true
 [node name="Flail" type="Node2D" parent="." unique_id=1236758814]
 
 [node name="Hitbox" type="Area2D" parent="Flail" unique_id=1797395548]
+collision_layer = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Flail/Hitbox" unique_id=1290859443]
 shape = SubResource("CircleShape2D_5ixln")
+disabled = true
 
 [connection signal="area_entered" from="Net/Area2D" to="." method="_on_net_area_entered"]

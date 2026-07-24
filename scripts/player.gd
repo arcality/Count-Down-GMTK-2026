@@ -16,6 +16,10 @@ var airhorn_duration: float = 1.1
 var airhorn_cooldown: float = 5.5
 var airhorn_ready: bool = true
 
+var flail_duration: float = 0.7
+var flail_cooldown: float = 0.2
+var flail_ready: bool = true
+
 func _physics_process(delta: float) -> void:
 	
 	# Get the input direction and handle the movement/deceleration.
@@ -30,6 +34,10 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("airhorn") and airhorn_ready:
 		use_airhorn()
+	
+	print(flail_ready)
+	if Input.is_action_just_pressed("flail") and flail_ready:
+		flail()
 	
 	if direction:
 		#velocity.x = direction.x * SPEED
@@ -78,6 +86,23 @@ func _on_airhorn_use_end() -> void:
 	
 func _on_airhorn_cooldown_end() -> void:
 	airhorn_ready = true
+	
+
+func flail() -> void:
+	$Flail/Hitbox/CollisionShape2D.disabled = false
+	var flail_timer := get_tree().create_timer(flail_duration)
+	flail_timer.timeout.connect(_on_flail_end)
+	
+	flail_ready = false
+	var flail_cooldown_timer := get_tree().create_timer(flail_cooldown)
+	flail_cooldown_timer.timeout.connect(_on_flail_cooldown_end)
+	
+
+func _on_flail_end() -> void:
+	$Flail/Hitbox/CollisionShape2D.disabled = true
+
+func _on_flail_cooldown_end() -> void:
+	flail_ready = true
 
 
 func _on_level_end() -> void:
