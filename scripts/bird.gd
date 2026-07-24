@@ -77,3 +77,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		scare()
 		#queue_free()
 		
+		
+
+func _on_caught() -> void:
+	scare()
+	queue_free()
+	pass

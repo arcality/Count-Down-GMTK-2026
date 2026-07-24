@@ -7,7 +7,11 @@ radius = 2.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_u8vuu"]
 
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_h0ex0"]
+points = PackedVector2Array(10, 7, 10, -7, 0, 0)
+
 [node name="Player" type="CharacterBody2D" unique_id=1211655326]
+collision_layer = 3
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1491246741]
@@ -15,3 +19,15 @@ shape = SubResource("CircleShape2D_h0ex0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1194371272]
 sprite_frames = SubResource("SpriteFrames_u8vuu")
+
+[node name="Net" type="Node2D" parent="." unique_id=1861254852]
+
+[node name="Area2D" type="Area2D" parent="Net" unique_id=1651022401]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Net/Area2D" unique_id=941080575]
+shape = SubResource("ConvexPolygonShape2D_h0ex0")
+disabled = true
+
+[connection signal="area_entered" from="Net/Area2D" to="." method="_on_net_area_entered"]

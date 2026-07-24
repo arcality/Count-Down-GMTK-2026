@@ -75,6 +75,12 @@ wave={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="collision"
+2d_physics/layer_2="scare"
+2d_physics/layer_3="net"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
