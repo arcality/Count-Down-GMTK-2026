@@ -17,11 +17,11 @@ script = ExtResource("1_sugp2")
 
 [node name="Title Screen" parent="." unique_id=118377000 instance=ExtResource("6_tefeu")]
 
+[node name="LaunchPad" parent="." unique_id=556309248 instance=ExtResource("2_0wfyh")]
+
 [node name="Player" parent="." unique_id=1211655326 instance=ExtResource("1_o5qli")]
 unique_name_in_owner = true
 position = Vector2(223, 154)
-
-[node name="LaunchPad" parent="." unique_id=556309248 instance=ExtResource("2_0wfyh")]
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1395894076]
 

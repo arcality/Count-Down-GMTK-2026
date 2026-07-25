@@ -26,11 +26,11 @@ var spawn_position := Vector2(240, 210)
 # is never (0, 0)
 var facing_direction := Vector2(0,-1)
 
-var has_max_speed = false
-var has_min_airhorn_cooldown = false
-var has_max_airhorn_radius = false
-var has_max_flail_radius = false
-var has_max_net_range = false
+var speed_upgrade_ct = 0
+var airhorn_cooldown_upgrade_ct = 0
+var airhorn_radius_upgrade_ct = 0
+var flail_radius_upgrade_ct = 0
+var net_range_upgrade_ct = 0
 
 enum States {
 	NOTHING,
@@ -83,10 +83,36 @@ func respawn() -> void:
 	
 
 func upgrade_speed() -> void:
+	if speed_upgrade_ct == 3:
+		print("Already Max Speed")
+		return
 	var upgrade_factor: float = 1.3
 	ACCELERATION *= upgrade_factor
+	speed_upgrade_ct += 1
 	
 	print(ACCELERATION)
+
+func upgrade_airhorn_cooldown() -> void:
+	if airhorn_cooldown_upgrade_ct == 3:
+		print("Already Min Airhorn Cooldown")
+		return
+	var upgrade_factor: float = 0.85
+	airhorn_cooldown *= upgrade_factor
+	airhorn_cooldown_upgrade_ct += 1
+	
+	print(airhorn_cooldown)
+	
+
+func upgrade_airhorn_radius() -> void:
+	if airhorn_cooldown_upgrade_ct == 3:
+		print("Already Min Airhorn Cooldown")
+		return
+	var upgrade_factor: float = 1.3
+	$Airhorn/Hitbox/CollisionShape2D.shape.radius *= upgrade_factor
+	#airhorn_cooldown *= upgrade_factor
+	airhorn_radius_upgrade_ct += 1
+	
+	print($Airhorn/Hitbox/CollisionShape2D.shape.radius)
 
 
 func swing_net() -> void:

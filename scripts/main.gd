@@ -137,5 +137,5 @@ func _on_title_screen_play_button_down() -> void:
 
 func _on_stats_screen_upgrade_selected(upgrade: Upgrade.Upgrades) -> void:
 	print(upgrade)
-	%Player.upgrade_speed()
+	%Player.upgrade_airhorn_radius()
 	print("Upgrade Selected: "+Upgrade.upgrade_data[upgrade]["text"])
