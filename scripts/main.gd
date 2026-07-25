@@ -25,8 +25,8 @@ var game_state = GameState.TITLE_SCREEN
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#start_level()
-	var upgrade: Upgrade = upgrade_scene.instantiate()
-	add_child(upgrade)
+	#var upgrade: Upgrade = upgrade_scene.instantiate()
+	#add_child(upgrade)
 	#print(window_width)
 	#print(window_height)
 	#print(get_window().size)
@@ -72,6 +72,9 @@ func end_level() -> void:
 func display_stats_screen() -> void:
 	# update stats
 	$StatsScreen.set_birds_saved(scared_bird_ct)
+	$StatsScreen.clear_upgrades()
+	for n in 3:
+		$StatsScreen.add_upgrade_choice(Upgrade.Upgrades.values().pick_random())
 	
 	# stats screen bounce animation
 	var temp_tween = get_tree().create_tween()
