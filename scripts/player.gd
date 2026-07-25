@@ -27,6 +27,10 @@ var spawn_position := Vector2(240, 210)
 var facing_direction := Vector2(0,-1)
 
 var has_max_speed = false
+var has_min_airhorn_cooldown = false
+var has_max_airhorn_radius = false
+var has_max_flail_radius = false
+var has_max_net_range = false
 
 enum States {
 	NOTHING,
