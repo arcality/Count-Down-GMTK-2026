@@ -100,14 +100,19 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		scare()
 
 
-
+var caught = false
 func _on_caught() -> void:
+	if caught == true: return
+	caught = true
 	if state != States.FLYING_AWAY:
 		scared.emit()
 	$FlappingSound.volume_db = -80.0
 	$Sprite2D.hide()
-	$Area2D/CollisionShape2D.disabled = true
+	#call_deferred("_disable_collision_shape")
+	$Area2D.monitoring = false
 	$CatchSound.play()
 	await $CatchSound.finished
 	queue_free()
-	
+
+func _disable_collision_shape() -> void:
+	$Area2D/CollisionShape2D.disabled = true

@@ -28,11 +28,11 @@ sprite_frames = SubResource("SpriteFrames_u8vuu")
 
 [node name="Net" type="Node2D" parent="." unique_id=1861254852]
 
-[node name="Area2D" type="Area2D" parent="Net" unique_id=1651022401]
-collision_layer = 4
+[node name="Hitbox" type="Area2D" parent="Net" unique_id=1651022401]
+collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Net/Area2D" unique_id=941080575]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Net/Hitbox" unique_id=941080575]
 shape = SubResource("ConvexPolygonShape2D_h0ex0")
 disabled = true
 
@@ -56,4 +56,4 @@ collision_mask = 0
 shape = SubResource("CircleShape2D_5ixln")
 disabled = true
 
-[connection signal="area_entered" from="Net/Area2D" to="." method="_on_net_area_entered"]
+[connection signal="area_entered" from="Net/Hitbox" to="." method="_on_net_area_entered"]

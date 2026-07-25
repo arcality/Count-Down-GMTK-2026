@@ -9,6 +9,7 @@ extends Node
 @onready var timer = $Timer
 
 var bird_scene = preload("res://scenes/bird.tscn")
+var upgrade_scene = preload("res://scenes/upgrade.tscn")
 var random = RandomNumberGenerator.new()
 var is_playing_level: bool = false
 
@@ -24,7 +25,8 @@ var game_state = GameState.TITLE_SCREEN
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#start_level()
-
+	var upgrade: Upgrade = upgrade_scene.instantiate()
+	add_child(upgrade)
 	#print(window_width)
 	#print(window_height)
 	#print(get_window().size)
@@ -46,7 +48,7 @@ func _process(_delta: float) -> void:
 			spawn_bird()
 			
 	
-	time_display.text = str(int(timer.time_left))
+	time_display.text = str(int(ceil(timer.time_left)))
 
 
 func start_level() -> void:

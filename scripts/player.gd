@@ -11,6 +11,7 @@ var can_move: bool = false
 var net_duration: float = 0.5
 var net_cooldown: float = 1.2
 var net_ready: bool = true
+var net_range: float = 10
 
 var airhorn_duration: float = 1.1
 var airhorn_cooldown: float = 5.5
@@ -25,6 +26,16 @@ var spawn_position := Vector2(240, 210)
 # is never (0, 0)
 var facing_direction := Vector2(0,-1)
 
+
+enum States {
+	NOTHING,
+	NET,
+	AIRHORN,
+	FLAIL
+}
+
+var state: States = States.NOTHING
+
 func _physics_process(delta: float) -> void:
 	
 	# get movement direction from input
@@ -36,13 +47,13 @@ func _physics_process(delta: float) -> void:
 	# update where the net is facing
 	net.rotation = facing_direction.angle()
 	
-	if Input.is_action_just_pressed("net") and net_ready:
+	if Input.is_action_just_pressed("net") and net_ready and state == States.NOTHING:
 		swing_net()
 	
-	if Input.is_action_just_pressed("airhorn") and airhorn_ready:
+	if Input.is_action_just_pressed("airhorn") and airhorn_ready and state == States.NOTHING:
 		use_airhorn()
 	
-	if Input.is_action_just_pressed("flail") and flail_ready:
+	if Input.is_action_just_pressed("flail") and flail_ready and state == States.NOTHING:
 		flail()
 	
 	if direction:
@@ -67,7 +78,8 @@ func respawn() -> void:
 
 
 func swing_net() -> void:
-	$Net/Area2D/CollisionShape2D.disabled = false
+	state = States.NET
+	$Net/Hitbox/CollisionShape2D.disabled = false
 	var net_swing_timer := get_tree().create_timer(net_duration)
 	net_swing_timer.timeout.connect(_on_net_swing_end)
 	
@@ -76,13 +88,15 @@ func swing_net() -> void:
 	net_cooldown_timer.timeout.connect(_on_net_cooldown_end)
 
 func _on_net_swing_end() -> void:
-	$Net/Area2D/CollisionShape2D.disabled = true
+	state = States.NOTHING
+	$Net/Hitbox/CollisionShape2D.disabled = true
 
 func _on_net_cooldown_end() -> void:
 	net_ready = true
 
 
 func use_airhorn() -> void:
+	state = States.AIRHORN
 	$Airhorn/Hitbox/CollisionShape2D.disabled = false
 	var airhorn_use_timer := get_tree().create_timer(airhorn_duration)
 	airhorn_use_timer.timeout.connect(_on_airhorn_use_end)
@@ -92,6 +106,7 @@ func use_airhorn() -> void:
 	airhorn_cooldown_timer.timeout.connect(_on_airhorn_cooldown_end)
 
 func _on_airhorn_use_end() -> void:
+	state = States.NOTHING
 	$Airhorn/Hitbox/CollisionShape2D.disabled = true
 	
 func _on_airhorn_cooldown_end() -> void:
@@ -99,6 +114,7 @@ func _on_airhorn_cooldown_end() -> void:
 	
 
 func flail() -> void:
+	state = States.FLAIL
 	$Flail/Hitbox/CollisionShape2D.disabled = false
 	var flail_timer := get_tree().create_timer(flail_duration)
 	flail_timer.timeout.connect(_on_flail_end)
@@ -109,6 +125,7 @@ func flail() -> void:
 	
 
 func _on_flail_end() -> void:
+	state = States.NOTHING
 	$Flail/Hitbox/CollisionShape2D.disabled = true
 
 func _on_flail_cooldown_end() -> void:
@@ -119,5 +136,5 @@ func _on_level_end() -> void:
 	velocity=Vector2(0,0)
 
 func _on_net_area_entered(area: Area2D) -> void:
-	print("bazinga!")
+	#print("bazinga!")
 	area.get_parent()._on_caught()
