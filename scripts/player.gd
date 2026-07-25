@@ -3,7 +3,7 @@ class_name Player extends CharacterBody2D
 @onready var net: Node2D = $Net
 
 const SPEED: float = 300.0
-const ACCELERATION: float = 16 * 60
+var ACCELERATION: float = 16 * 60
 const DECELERATION: float = 4 * 60
 
 var can_move: bool = false
@@ -26,6 +26,7 @@ var spawn_position := Vector2(240, 210)
 # is never (0, 0)
 var facing_direction := Vector2(0,-1)
 
+var has_max_speed = false
 
 enum States {
 	NOTHING,
@@ -75,6 +76,13 @@ func _physics_process(delta: float) -> void:
 
 func respawn() -> void:
 	position = spawn_position
+	
+
+func upgrade_speed() -> void:
+	var upgrade_factor: float = 1.3
+	ACCELERATION *= upgrade_factor
+	
+	print(ACCELERATION)
 
 
 func swing_net() -> void:

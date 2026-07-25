@@ -38,7 +38,7 @@ label_settings = SubResource("LabelSettings_5kwya")
 horizontal_alignment = 1
 
 [node name="Timer" type="Timer" parent="." unique_id=373041728]
-wait_time = 60.0
+wait_time = 10.0
 one_shot = true
 
 [node name="StatsScreen" parent="." unique_id=582774533 instance=ExtResource("5_tbgi4")]
@@ -49,3 +49,4 @@ transform = Transform2D(1, 0, 0, 1, 0, -270)
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="main_menu_button_down" from="StatsScreen" to="." method="_on_stats_screen_main_menu_button_down"]
 [connection signal="retry_button_down" from="StatsScreen" to="." method="_on_stats_screen_retry_button_down"]
+[connection signal="upgrade_selected" from="StatsScreen" to="." method="_on_stats_screen_upgrade_selected"]
