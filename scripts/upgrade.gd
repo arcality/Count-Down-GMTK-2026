@@ -9,7 +9,7 @@ enum Upgrades {
 	SPEED
 }
 
-var upgrade_data: Array = [
+const upgrade_data: Array = [
 	{"text":"Shorter Airhorn Cooldown", "property":"airhorn_cooldown"},
 	{"text":"Louder Airhorn", "property":"airhorn_radius"},
 	{"text":"More Menacing Baton", "property":"flail_radius"},
@@ -21,13 +21,16 @@ var upgrade_data: Array = [
 
 
 var upgrade: Upgrades
+var display_text := ""
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	upgrade = Upgrades.values().pick_random()
+	display_text = upgrade_data[upgrade]["text"]
 	print(upgrade)
 	#print(Upgrades.keys()[upgrade])
-	print(upgrade_data[upgrade]["property"])
+	print(display_text)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

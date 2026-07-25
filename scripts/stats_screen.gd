@@ -12,6 +12,11 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+
+func add_upgrade_choice(upgrade: Upgrade) -> void:
+	pass
+
+
 func set_birds_saved(bird_ct: int) -> void:
 	$BirdsSavedLabel.text = "Birds Saved: " + str(bird_ct)
 
