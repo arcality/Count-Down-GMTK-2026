@@ -28,6 +28,8 @@ var game_state = GameState.TITLE_SCREEN
 var total_casualties := 0
 var casualty_limit := 20
 
+var fire_test_number = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#start_level()
@@ -50,7 +52,7 @@ func _process(_delta: float) -> void:
 	if game_state == GameState.PLAYING_LEVEL:
 		if Input.is_action_just_pressed("debug_button"):
 			spawn_bird()
-		if random.randi_range(0,100) == 0:
+		if random.randi_range(0,100) <= fire_test_number-1:
 			spawn_bird()
 			
 	
@@ -58,6 +60,8 @@ func _process(_delta: float) -> void:
 
 
 func start_level() -> void:
+	fire_test_number += 1
+	print(fire_test_number-1)
 	game_state = GameState.PLAYING_LEVEL
 	print("start level")
 	
