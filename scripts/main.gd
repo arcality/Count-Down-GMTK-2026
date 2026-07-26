@@ -115,9 +115,13 @@ func spawn_bird() -> void:
 	if random.randi_range(0,1) == 0:
 		new_bird.starting_location = Vector2(0,randi_range(50, window_height-50))
 		new_bird.landing_destination = Vector2(randi_range(20,window_width/2),randi_range(50, window_height-50))
+		while Geometry2D.is_point_in_circle(new_bird.landing_destination, Vector2(240,148),76):
+			new_bird.landing_destination = Vector2(randi_range(20,window_width/2),randi_range(50, window_height-50))
 	else:
 		new_bird.starting_location = Vector2(window_width,randi_range(50, window_height-50))
 		new_bird.landing_destination = Vector2(randi_range(window_width/2,window_width-20),randi_range(50, window_height-50))
+		while Geometry2D.is_point_in_circle(new_bird.landing_destination, Vector2(240,148),76):
+			new_bird.landing_destination = Vector2(randi_range(window_width/2,window_width-20),randi_range(50, window_height-50))
 	#new_bird.starting_location = Vector2(0,150)
 	#new_bird.landing_destination = Vector2(240,135)
 	

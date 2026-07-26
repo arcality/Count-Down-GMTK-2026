@@ -24,6 +24,8 @@ var retreat_vector = null #movement vector
 
 var flap_speed: float = 0.25
 
+var hopping
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	position = starting_location
@@ -72,6 +74,7 @@ func landing(delta: float) -> void:
 
 
 func grounded(_delta: float) -> void:
+	
 	pass
 	
 
