@@ -1,14 +1,20 @@
 [gd_scene format=3 uid="uid://bcgk1ejtddljj"]
 
 [ext_resource type="Script" uid="uid://b04grcdcjojvd" path="res://scripts/title_screen.gd" id="1_fgkus"]
-[ext_resource type="FontFile" uid="uid://dpcg32dfujs37" path="res://assets/fonts/DePixelHalbfett.ttf" id="2_sa3yf"]
+[ext_resource type="Texture2D" uid="uid://cjy4fplbp2sxb" path="res://assets/art/backgrounds/title_screen.png" id="2_sa3yf"]
+[ext_resource type="FontFile" uid="uid://dpcg32dfujs37" path="res://assets/fonts/DePixelHalbfett.ttf" id="3_s4lrb"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tbgi4"]
-font = ExtResource("2_sa3yf")
+font = ExtResource("3_s4lrb")
 font_size = 20
 
 [node name="Title Screen" type="CanvasLayer" unique_id=118377000]
 script = ExtResource("1_fgkus")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=830030266]
+texture_filter = 1
+position = Vector2(240, 135)
+texture = ExtResource("2_sa3yf")
 
 [node name="Label" type="Label" parent="." unique_id=1849453135]
 anchors_preset = 5
