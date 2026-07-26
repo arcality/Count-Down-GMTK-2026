@@ -12,6 +12,13 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	$DoorEntrance.get_overlapping_bodies()
 
+func run_hot_fire_test() -> void:
+	$HotFireAnimation.play()
+	$HotFireAnimation.show()
+
+func reset() -> void:
+	$HotFireAnimation.hide()
+
 
 func _on_door_entrance_body_entered(body: Node2D) -> void:
 	print('sjdgbsgkdsnkjs')

@@ -84,8 +84,7 @@ func _physics_process(delta: float) -> void:
 	if direction != Vector2(0, 0):
 		facing_direction = direction
 	
-	# update where the net is facing
-	net.rotation = facing_direction.angle()
+	
 	
 	if state != States.PROTECTED:
 		if Input.is_action_just_pressed("net") and net_ready and state == States.NOTHING:
@@ -110,6 +109,10 @@ func _physics_process(delta: float) -> void:
 		#velocity.y = move_toward(velocity.y, 0, DECELERATION)
 		velocity.x = velocity.x/1.17
 		velocity.y = velocity.y/1.17
+		
+		
+		# update where the net is facing
+		net.rotation = facing_direction.angle()
 	else:
 		velocity = Vector2(0,0)
 		

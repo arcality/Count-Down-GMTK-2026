@@ -59,6 +59,9 @@ func game_over() -> void:
 	$UpgradeHBox.hide()
 	$SelectAnUpgradeLabel.hide()
 	$RetryButton.disabled = true
+	$MainMenuButton.disabled = true
+	$RetryButton.hide()
+	$MainMenuButton.hide()
 
 func _on_retry_button_button_down() -> void:
 	emit_signal("retry_button_down")

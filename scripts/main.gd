@@ -25,7 +25,8 @@ enum GameState {
 
 var game_state = GameState.TITLE_SCREEN
 
-var total_casualties = 0
+var total_casualties := 0
+var casualty_limit := 20
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -62,6 +63,8 @@ func start_level() -> void:
 	
 	%Player.can_move = true
 	%Player.respawn()
+	
+	$LaunchPad.reset()
 
 	timer.start()
 	scared_bird_ct = 0
@@ -73,7 +76,7 @@ func start_level() -> void:
 	
 
 func end_level() -> void:
-	
+	$LaunchPad.run_hot_fire_test()
 	display_stats_screen()
 	%Player.can_move = false
 	
@@ -84,7 +87,7 @@ func display_stats_screen() -> void:
 	for bird in get_tree().get_nodes_in_group("birds"):
 		bird_tally += 1
 	total_casualties += bird_tally
-	if %Player.state==%Player.States.PROTECTED:
+	if %Player.state!=%Player.States.PROTECTED:
 		total_casualties += 1
 	
 	$StatsScreen.set_marmot_casualties(%Player.state==%Player.States.PROTECTED)
@@ -93,26 +96,28 @@ func display_stats_screen() -> void:
 	
 	$StatsScreen.clear_upgrades()
 	
-	var possible_upgrades := Upgrade.Upgrades.values()
-	possible_upgrades.shuffle()
+	if total_casualties >= casualty_limit:
+		$StatsScreen.game_over()
+	else:
+		var possible_upgrades := Upgrade.Upgrades.values()
+		possible_upgrades.shuffle()
+		
+		if %Player.airhorn_cooldown_upgrade_ct >= 3:
+			possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.AIRHORN_COOLDOWN))
+		if %Player.airhorn_radius_upgrade_ct >= 3:
+			possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.AIRHORN_RADIUS))
+		if %Player.flail_radius_upgrade_ct >= 3:
+			possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.BATON_SIZE))
+		#if %Player.net_range_upgrade_ct >= 3:
+			#possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.NET_DISTANCE))
+		if %Player.speed_upgrade_ct >= 3:
+			possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.SPEED))
+		
+		possible_upgrades = possible_upgrades.slice(0,3)
+		#var possible_upgrades := possible_upgrades.slice(0,2)
+		for u in possible_upgrades:
+			$StatsScreen.add_upgrade_choice(u)
 	
-	if %Player.airhorn_cooldown_upgrade_ct >= 3:
-		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.AIRHORN_COOLDOWN))
-	if %Player.airhorn_radius_upgrade_ct >= 3:
-		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.AIRHORN_RADIUS))
-	if %Player.flail_radius_upgrade_ct >= 3:
-		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.BATON_SIZE))
-	#if %Player.net_range_upgrade_ct >= 3:
-		#possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.NET_DISTANCE))
-	if %Player.speed_upgrade_ct >= 3:
-		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.SPEED))
-	
-	possible_upgrades = possible_upgrades.slice(0,3)
-	#var possible_upgrades := possible_upgrades.slice(0,2)
-	for u in possible_upgrades:
-		$StatsScreen.add_upgrade_choice(u)
-	#for n in 3:
-		#$StatsScreen.add_upgrade_choice(Upgrade.Upgrades.values().pick_random())
 	
 	# stats screen bounce animation
 	var temp_tween = get_tree().create_tween()
