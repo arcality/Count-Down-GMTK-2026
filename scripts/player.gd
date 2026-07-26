@@ -50,9 +50,10 @@ func _process(delta: float) -> void:
 	else:
 		z_index = 4
 	
-	$AnimatedSprite2D.flip_h = false
+	
 	
 	if state == States.NOTHING:
+		$AnimatedSprite2D.flip_h = false
 		if direction == Vector2(0,0):
 			if facing_direction.y > 0:
 				$AnimatedSprite2D.play("idle_front")
@@ -96,7 +97,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("flail") and flail_ready and state == States.NOTHING:
 			flail()
 	
-	if state != States.AIRHORN and state != States.PROTECTED and state != States.FLAIL:
+	if state != States.AIRHORN and state != States.PROTECTED and state != States.FLAIL and state != States.NET:
 		if direction:
 			#velocity.x = direction.x * SPEED
 			#velocity.y = direction.y * SPEED
@@ -189,18 +190,21 @@ func upgrade_net_range() -> void:
 
 func swing_net() -> void:
 	if facing_direction.y > 0:
-		$AnimatedSprite2D.play("idle_front")
+		$AnimatedSprite2D.play("net_front")
 	elif facing_direction.y < 0:
-		$AnimatedSprite2D.play("idle_back")
+		$AnimatedSprite2D.play("net_back")
 	elif facing_direction.x > 0:
 		$AnimatedSprite2D.flip_h = true
-		$AnimatedSprite2D.play("idle_side")
+		$AnimatedSprite2D.play("net_side")
 	elif facing_direction.x < 0:
-		$AnimatedSprite2D.play("idle_side")
+		$AnimatedSprite2D.play("net_side")
 	state = States.NET
-	$Net/Hitbox/CollisionPolygon2D.disabled = false
+	
 	var net_swing_timer := get_tree().create_timer(net_duration)
 	net_swing_timer.timeout.connect(_on_net_swing_end)
+	
+	var net_hitbox_timer := get_tree().create_timer(net_duration-0.2)
+	net_hitbox_timer.timeout.connect(_on_net_hitbox_timer_timeout)
 	
 	net_ready = false
 	var net_cooldown_timer := get_tree().create_timer(net_cooldown)
@@ -209,6 +213,9 @@ func swing_net() -> void:
 func _on_net_swing_end() -> void:
 	state = States.NOTHING
 	$Net/Hitbox/CollisionPolygon2D.disabled = true
+
+func _on_net_hitbox_timer_timeout() -> void:
+	$Net/Hitbox/CollisionPolygon2D.disabled = false
 
 func _on_net_cooldown_end() -> void:
 	net_ready = true

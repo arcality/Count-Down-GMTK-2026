@@ -102,7 +102,7 @@ func _process(delta: float) -> void:
 		sleeping(delta)
 
 func _on_flap_end() -> void:
-	if state != States.GROUNDED:
+	if state == States.LANDING or state == States.FLYING_AWAY:
 		$FlappingSound.play()
 	var flap_timer := get_tree().create_timer(flap_speed)
 	flap_timer.timeout.connect(_on_flap_end)
@@ -194,6 +194,7 @@ func _on_caught() -> void:
 	caught = true
 	if state != States.FLYING_AWAY:
 		scared.emit()
+	state = States.GROUNDED
 	$FlappingSound.volume_db = -80.0
 	$Sprite2D.hide()
 	#call_deferred("_disable_collision_shape")

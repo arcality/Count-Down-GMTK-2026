@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://70dn66r7n3an"]
+
+[node name="sleep_particle" type="Node2D" unique_id=1187254021]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1014809632]

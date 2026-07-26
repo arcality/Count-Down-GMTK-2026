@@ -596,7 +596,7 @@ shape = SubResource("ConvexPolygonShape2D_h0ex0")
 disabled = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Net/Hitbox" unique_id=1633158455]
-polygon = PackedVector2Array(30, 7, 30, -7, 0, 0)
+polygon = PackedVector2Array(20, 10, 20, -10, 0, 0)
 disabled = true
 
 [node name="Airhorn" type="Node2D" parent="." unique_id=1187505450]

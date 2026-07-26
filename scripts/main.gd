@@ -47,8 +47,8 @@ func _process(_delta: float) -> void:
 	if game_state == GameState.PLAYING_LEVEL:
 		if Input.is_action_just_pressed("debug_button"):
 			spawn_bird()
-		if random.randi_range(0,100) == 0:
-			spawn_bird()
+		#if random.randi_range(0,100) == 0:
+			#spawn_bird()
 			
 	
 	time_display.text = str(int(ceil(timer.time_left)))
