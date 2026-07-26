@@ -7,6 +7,14 @@
 font = ExtResource("2_pxxv7")
 font_size = 11
 
+[sub_resource type="LabelSettings" id="LabelSettings_tipki"]
+font = ExtResource("2_pxxv7")
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_85g3d"]
+font = ExtResource("2_pxxv7")
+font_size = 9
+
 [node name="StatsScreen" type="CanvasLayer" unique_id=582774533]
 script = ExtResource("1_2iv5a")
 
@@ -134,6 +142,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 25
 text = "GameOver"
+label_settings = SubResource("LabelSettings_tipki")
+horizontal_alignment = 1
 
 [node name="Label" type="Label" parent="GameOverLabel" unique_id=1919600349]
 layout_mode = 1
@@ -151,6 +161,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 14
 text = "There were too many casualties
 and you lost funding :("
+label_settings = SubResource("LabelSettings_85g3d")
 horizontal_alignment = 1
 
 [connection signal="button_down" from="RetryButton" to="." method="_on_retry_button_button_down"]
