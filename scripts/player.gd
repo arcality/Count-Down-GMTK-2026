@@ -25,6 +25,7 @@ var spawn_position := Vector2(240, 210)
 
 # is never (0, 0)
 var facing_direction := Vector2(0,-1)
+var direction := Vector2(0,0)
 
 var speed_upgrade_ct = 0
 var airhorn_cooldown_upgrade_ct = 0
@@ -42,10 +43,23 @@ enum States {
 
 var state: States = States.NOTHING
 
+
+func _process(delta: float) -> void:
+	$AnimatedSprite2D.flip_h = false
+	if facing_direction.x == 1:
+		$AnimatedSprite2D.flip_h = true
+		$AnimatedSprite2D.play("idle_side")
+	elif facing_direction.x == -1:
+		$AnimatedSprite2D.play("idle_side")
+	elif facing_direction.y == 1:
+		$AnimatedSprite2D.play("idle_front")
+	elif facing_direction.y == -1:
+		$AnimatedSprite2D.play("idle_back")
+
 func _physics_process(delta: float) -> void:
 	
 	# get movement direction from input
-	var direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	# update the direction the player is facing
 	if direction != Vector2(0, 0):
 		facing_direction = direction
@@ -87,12 +101,12 @@ func _physics_process(delta: float) -> void:
 func respawn() -> void:
 	position = spawn_position
 	state = States.NOTHING
-	$TempSprite2D.show()
+	#$TempSprite2D.show()
 	$AnimatedSprite2D.show()
 	
 
 func protect() -> void:
-	$TempSprite2D.hide()
+	#$TempSprite2D.hide()
 	$AnimatedSprite2D.hide()
 	state = States.PROTECTED
 

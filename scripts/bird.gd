@@ -4,7 +4,9 @@ const SPEED: float = 100
 const RETREAT_SPEED = 200
 
 @onready var window_width = get_viewport().get_visible_rect().size.x
-@onready var window_height = get_viewport().get_visible_rect().size.y
+@onready var window_height  = get_viewport().get_visible_rect().size.y
+
+var random = RandomNumberGenerator.new()
 
 signal scared
 
@@ -17,17 +19,52 @@ enum States {
 	FLYING_AWAY
 }
 
+var spawn_side = 0
 @export var state = States.LANDING
 @export var starting_location: Vector2 = Vector2(0,0)
 @export var landing_destination: Vector2 = Vector2(0,0)
 var retreat_vector = null #movement vector
+var facing: int = 1
 
 var flap_speed: float = 0.25
 
-var hopping
+var hopping: bool = false
+
+#func set_params(facing_: int) -> void:
+	#if facing_ == 0:
+		#starting_location = Vector2(0,randi_range(50, window_height-50))
+		#print(starting_location)
+		#landing_destination = Vector2(randi_range(20,window_width/2),randi_range(50, window_height-50))
+		#while Geometry2D.is_point_in_circle(landing_destination, Vector2(240,148),76):
+			#landing_destination = Vector2(randi_range(20,window_width/2),randi_range(50, window_height-50))
+		#facing = 1
+	#else:
+		#starting_location = Vector2(window_width,randi_range(50, window_height-50))
+		#print(starting_location)
+		#landing_destination = Vector2(randi_range(window_width/2,window_width-20),randi_range(50, window_height-50))
+		#while Geometry2D.is_point_in_circle(landing_destination, Vector2(240,148),76):
+			#landing_destination = Vector2(randi_range(window_width/2,window_width-20),randi_range(50, window_height-50))
+		#facing = -1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if spawn_side == 0:
+		starting_location = Vector2(0,randi_range(50, window_height-50))
+		print(starting_location)
+		landing_destination = Vector2(randi_range(20,window_width/2),randi_range(50, window_height-50))
+		while Geometry2D.is_point_in_circle(landing_destination, Vector2(240,148),76):
+			landing_destination = Vector2(randi_range(20,window_width/2),randi_range(50, window_height-50))
+		facing = 1
+	else:
+		starting_location = Vector2(window_width,randi_range(50, window_height-50))
+		print(starting_location)
+		landing_destination = Vector2(randi_range(window_width/2,window_width-20),randi_range(50, window_height-50))
+		while Geometry2D.is_point_in_circle(landing_destination, Vector2(240,148),76):
+			landing_destination = Vector2(randi_range(window_width/2,window_width-20),randi_range(50, window_height-50))
+		facing = -1
+	
+	
+	
 	position = starting_location
 	print("hello!")
 	add_to_group("birds")
@@ -62,6 +99,7 @@ func _on_flap_end() -> void:
 func landing(delta: float) -> void:
 	# move toward destination
 	position = position.move_toward(landing_destination, SPEED*delta)
+	#print(landing_destination)
 	#print(position)
 
 	# switch to GROUNDED when destination is reached
@@ -74,9 +112,14 @@ func landing(delta: float) -> void:
 
 
 func grounded(_delta: float) -> void:
-	
-	pass
-	
+	if not hopping and random.randi_range(0,100) < 10:
+		hopping = true
+		
+		#var hop_tween = get_tree().create_tween()
+
+
+func _on_hop_end() -> void:
+	hopping = false
 
 func flying_away(delta: float) -> void:
 	#print(position)

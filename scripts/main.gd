@@ -112,24 +112,29 @@ func spawn_bird() -> void:
 	if timer.time_left <= warning_window_length:
 		return
 	var new_bird: Bird = bird_scene.instantiate()
-	if random.randi_range(0,1) == 0:
-		new_bird.starting_location = Vector2(0,randi_range(50, window_height-50))
-		new_bird.landing_destination = Vector2(randi_range(20,window_width/2),randi_range(50, window_height-50))
-		while Geometry2D.is_point_in_circle(new_bird.landing_destination, Vector2(240,148),76):
-			new_bird.landing_destination = Vector2(randi_range(20,window_width/2),randi_range(50, window_height-50))
-	else:
-		new_bird.starting_location = Vector2(window_width,randi_range(50, window_height-50))
-		new_bird.landing_destination = Vector2(randi_range(window_width/2,window_width-20),randi_range(50, window_height-50))
-		while Geometry2D.is_point_in_circle(new_bird.landing_destination, Vector2(240,148),76):
-			new_bird.landing_destination = Vector2(randi_range(window_width/2,window_width-20),randi_range(50, window_height-50))
+	
+	#if random.randi_range(0,1) == 0:
+		#new_bird.starting_location = Vector2(0,randi_range(50, window_height-50))
+		#new_bird.landing_destination = Vector2(randi_range(20,window_width/2),randi_range(50, window_height-50))
+		#while Geometry2D.is_point_in_circle(new_bird.landing_destination, Vector2(240,148),76):
+			#new_bird.landing_destination = Vector2(randi_range(20,window_width/2),randi_range(50, window_height-50))
+		#new_bird.facing = 1
+	#else:
+		#new_bird.starting_location = Vector2(window_width,randi_range(50, window_height-50))
+		#new_bird.landing_destination = Vector2(randi_range(window_width/2,window_width-20),randi_range(50, window_height-50))
+		#while Geometry2D.is_point_in_circle(new_bird.landing_destination, Vector2(240,148),76):
+			#new_bird.landing_destination = Vector2(randi_range(window_width/2,window_width-20),randi_range(50, window_height-50))
+		#new_bird.facing = 1
+	
 	#new_bird.starting_location = Vector2(0,150)
 	#new_bird.landing_destination = Vector2(240,135)
-	
+	new_bird.spawn_side = random.randi_range(0,1)
 	new_bird.bounds = $LaunchPad.bounds
 	new_bird.scared.connect(_on_bird_scared)
 		
-	print(new_bird.landing_destination)
+	#print(new_bird.landing_destination)
 	add_child(new_bird)
+	#new_bird.set_params(random.randi_range(0,1))
 	
 
 func _on_bird_scared() -> void:
