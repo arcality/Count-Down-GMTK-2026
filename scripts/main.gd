@@ -74,12 +74,21 @@ func display_stats_screen() -> void:
 	$StatsScreen.set_birds_saved(scared_bird_ct)
 	$StatsScreen.clear_upgrades()
 	
-	var possible_upgrades := Upgrade.Upgrades.values().slice(0,3)
+	var possible_upgrades := Upgrade.Upgrades.values()
+	possible_upgrades.shuffle()
+	
 	if %Player.airhorn_cooldown_upgrade_ct >= 3:
 		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.AIRHORN_COOLDOWN))
 	if %Player.airhorn_radius_upgrade_ct >= 3:
 		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.AIRHORN_RADIUS))
+	if %Player.flail_radius_upgrade_ct >= 3:
+		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.BATON_SIZE))
+	if %Player.net_range_upgrade_ct >= 3:
+		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.NET_DISTANCE))
+	if %Player.speed_upgrade_ct >= 3:
+		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.SPEED))
 	
+	possible_upgrades = possible_upgrades.slice(0,3)
 	#var possible_upgrades := possible_upgrades.slice(0,2)
 	for u in possible_upgrades:
 		$StatsScreen.add_upgrade_choice(u)
@@ -158,5 +167,5 @@ func _on_stats_screen_upgrade_selected(upgrade: Upgrade.Upgrades) -> void:
 			%Player.upgrade_net_range()
 		Upgrade.Upgrades.SPEED:
 			%Player.upgrade_speed()
-	%Player.upgrade_net_range()
+	#%Player.upgrade_net_range()
 	print("Upgrade Selected: "+Upgrade.upgrade_data[upgrade]["text"])
