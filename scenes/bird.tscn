@@ -235,6 +235,7 @@ max_polyphony = 4
 stream = SubResource("AudioStreamRandomizer_3po83")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=428280399]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_bdh3x")
 animation = &"fly"
 

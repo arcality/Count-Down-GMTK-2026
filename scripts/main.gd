@@ -25,7 +25,7 @@ enum GameState {
 
 var game_state = GameState.TITLE_SCREEN
 
-var total_bird_casualties
+var total_casualties = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -83,9 +83,14 @@ func display_stats_screen() -> void:
 	var bird_tally := 0
 	for bird in get_tree().get_nodes_in_group("birds"):
 		bird_tally += 1
-		
+	total_casualties += bird_tally
+	if %Player.state==%Player.States.PROTECTED:
+		total_casualties += 1
+	
 	$StatsScreen.set_marmot_casualties(%Player.state==%Player.States.PROTECTED)
 	$StatsScreen.set_bird_casualties(bird_tally)
+	$StatsScreen.set_total_casualties(total_casualties)
+	
 	$StatsScreen.clear_upgrades()
 	
 	var possible_upgrades := Upgrade.Upgrades.values()

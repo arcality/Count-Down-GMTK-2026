@@ -41,14 +41,24 @@ func _on_upgrade_button_down(upgrade: Upgrade.Upgrades) -> void:
 
 
 
-func set_bird_casualties(bird_ct: int) -> void:
-	$BirdCasualtiesLabel.text = "Bird Casualties: " + str(bird_ct)
+func set_bird_casualties(bird_casualties: int) -> void:
+	$BirdCasualtiesLabel.text = "Bird Casualties: " + str(bird_casualties)
 
 func set_marmot_casualties(protected: bool) -> void:
 	if protected:
 		$MarmotCasualtiesLabel.text = ""
 	else:
 		$MarmotCasualtiesLabel.text = "Marmot Casualties: 1"
+
+func set_total_casualties(total_casualties: int) -> void:
+	$TotalCasualtiesLabel.text = "Total Casualties: " + str(total_casualties)
+	
+
+func game_over() -> void:
+	$GameOverLabel.show()
+	$UpgradeHBox.hide()
+	$SelectAnUpgradeLabel.hide()
+	$RetryButton.disabled = true
 
 func _on_retry_button_button_down() -> void:
 	emit_signal("retry_button_down")

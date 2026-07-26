@@ -54,6 +54,8 @@ var hopping: bool = false
 func _ready() -> void:
 	if spawn_side == -1:
 		position = Vector2(randi_range(20,window_width-20),randi_range(50, window_height-50))
+		while Geometry2D.is_point_in_circle(position, Vector2(240,148),76):
+				position = Vector2(randi_range(20,window_width-20),randi_range(50, window_height-50))
 		facing = [-1, 1].pick_random()
 		if facing == -1:
 			$AnimatedSprite2D.flip_h = true
@@ -150,7 +152,8 @@ func grounded(_delta: float) -> void:
 		#var hop_tween = get_tree().create_tween()
 
 func _on_sleepy_timer_timeout() -> void:
-	switch_to_sleeping()
+	if state == States.GROUNDED:
+		switch_to_sleeping()
 
 func switch_to_sleeping() -> void:
 	state = States.SLEEPING
