@@ -8,6 +8,12 @@
 font = ExtResource("3_s4lrb")
 font_size = 20
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s4lrb"]
+
+[sub_resource type="Theme" id="Theme_r64qy"]
+default_font = ExtResource("3_s4lrb")
+Button/styles/disabled = SubResource("StyleBoxTexture_s4lrb")
+
 [node name="Title Screen" type="CanvasLayer" unique_id=118377000]
 script = ExtResource("1_fgkus")
 
@@ -42,6 +48,7 @@ offset_bottom = 63.5
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
+theme = SubResource("Theme_r64qy")
 text = "Play"
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
