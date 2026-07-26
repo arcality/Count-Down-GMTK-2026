@@ -227,7 +227,7 @@ shape = SubResource("CircleShape2D_h0ex0")
 
 [node name="FlappingSound" type="AudioStreamPlayer2D" parent="." unique_id=73784802]
 stream = SubResource("AudioStreamRandomizer_h0ex0")
-volume_db = 2.43
+volume_db = 11.178
 pitch_scale = 1.24
 max_polyphony = 4
 
