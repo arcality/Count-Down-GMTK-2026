@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://e1q8n26qpyl4"]
 
 [ext_resource type="Script" uid="uid://8rqfkbdy6uns" path="res://scripts/stats_screen.gd" id="1_2iv5a"]
+[ext_resource type="FontFile" uid="uid://dpcg32dfujs37" path="res://assets/fonts/DePixelHalbfett.ttf" id="2_pxxv7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
+font = ExtResource("2_pxxv7")
+font_size = 11
 
 [node name="StatsScreen" type="CanvasLayer" unique_id=582774533]
 script = ExtResource("1_2iv5a")
@@ -17,6 +22,7 @@ offset_right = 46.0
 offset_bottom = 39.0
 grow_horizontal = 2
 text = "Placeholder"
+label_settings = SubResource("LabelSettings_o6xl0")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -30,6 +36,8 @@ offset_right = 46.0
 offset_bottom = 60.0
 grow_horizontal = 2
 text = "Placeholder"
+label_settings = SubResource("LabelSettings_o6xl0")
+vertical_alignment = 1
 
 [node name="TotalCasualtiesLabel" type="Label" parent="." unique_id=1348695890]
 anchors_preset = 5
@@ -41,13 +49,19 @@ offset_right = 46.0
 offset_bottom = 81.0
 grow_horizontal = 2
 text = "Placeholder"
+label_settings = SubResource("LabelSettings_o6xl0")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RetryButton" type="Button" parent="." unique_id=415204584]
+texture_filter = 1
 offset_left = 278.0
 offset_top = 227.0
 offset_right = 361.0
 offset_bottom = 258.0
 focus_mode = 0
+theme_override_fonts/font = ExtResource("2_pxxv7")
+theme_override_font_sizes/font_size = 12
 text = "Next Round"
 
 [node name="MainMenuButton" type="Button" parent="." unique_id=1812817415]
@@ -56,6 +70,8 @@ offset_top = 227.0
 offset_right = 198.0
 offset_bottom = 258.0
 focus_mode = 0
+theme_override_fonts/font = ExtResource("2_pxxv7")
+theme_override_font_sizes/font_size = 12
 text = "Title Screen"
 
 [node name="UpgradeHBox" type="HBoxContainer" parent="." unique_id=1529446256]
@@ -73,11 +89,17 @@ grow_vertical = 2
 theme_override_constants/separation = 16
 
 [node name="Button" type="Button" parent="UpgradeHBox" unique_id=438843825]
+texture_filter = 1
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_pxxv7")
+theme_override_font_sizes/font_size = 12
 text = "djfhksks"
 
 [node name="Button2" type="Button" parent="UpgradeHBox" unique_id=60609222]
+texture_filter = 1
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_pxxv7")
+theme_override_font_sizes/font_size = 12
 text = "dhsjkhgd"
 
 [node name="SelectAnUpgradeLabel" type="Label" parent="." unique_id=2129483883]
@@ -93,6 +115,9 @@ offset_bottom = -20.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Select an Upgrade"
+label_settings = SubResource("LabelSettings_o6xl0")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="GameOverLabel" type="Label" parent="." unique_id=1177816336]
 visible = false
