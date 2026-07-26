@@ -44,6 +44,12 @@ func _on_upgrade_button_down(upgrade: Upgrade.Upgrades) -> void:
 func set_birds_saved(bird_ct: int) -> void:
 	$BirdsSavedLabel.text = "Birds Saved: " + str(bird_ct)
 
+func set_marmot_casualties(protected: bool) -> void:
+	if protected:
+		$MarmotCasualtiesLabel.text = ""
+	else:
+		$MarmotCasualtiesLabel.text = "Marmot Casualties: 1"
+
 func _on_retry_button_button_down() -> void:
 	emit_signal("retry_button_down")
 

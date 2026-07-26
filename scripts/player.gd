@@ -36,7 +36,8 @@ enum States {
 	NOTHING,
 	NET,
 	AIRHORN,
-	FLAIL
+	FLAIL,
+	PROTECTED
 }
 
 var state: States = States.NOTHING
@@ -52,16 +53,17 @@ func _physics_process(delta: float) -> void:
 	# update where the net is facing
 	net.rotation = facing_direction.angle()
 	
-	if Input.is_action_just_pressed("net") and net_ready and state == States.NOTHING:
-		swing_net()
+	if state != States.PROTECTED:
+		if Input.is_action_just_pressed("net") and net_ready and state == States.NOTHING:
+			swing_net()
+		
+		if Input.is_action_just_pressed("airhorn") and airhorn_ready and state == States.NOTHING:
+			use_airhorn()
+		
+		if Input.is_action_just_pressed("flail") and flail_ready and state == States.NOTHING:
+			flail()
 	
-	if Input.is_action_just_pressed("airhorn") and airhorn_ready and state == States.NOTHING:
-		use_airhorn()
-	
-	if Input.is_action_just_pressed("flail") and flail_ready and state == States.NOTHING:
-		flail()
-	
-	if state != States.AIRHORN:
+	if state != States.AIRHORN and state != States.PROTECTED:
 		if direction:
 			#velocity.x = direction.x * SPEED
 			#velocity.y = direction.y * SPEED
@@ -84,7 +86,15 @@ func _physics_process(delta: float) -> void:
 
 func respawn() -> void:
 	position = spawn_position
+	state = States.NOTHING
+	$TempSprite2D.show()
+	$AnimatedSprite2D.show()
 	
+
+func protect() -> void:
+	$TempSprite2D.hide()
+	$AnimatedSprite2D.hide()
+	state = States.PROTECTED
 
 func upgrade_speed() -> void:
 	if speed_upgrade_ct == 3:
@@ -136,17 +146,17 @@ func upgrade_net_range() -> void:
 		print("Already Max Net Range")
 		return
 	var upgrade_factor: float = 1.1
-	$Net/Hitbox/CollisionShape2D.shape.points[0].x *= upgrade_factor
-	$Net/Hitbox/CollisionShape2D.shape.points[1].x *= upgrade_factor
+	#$Net/Hitbox/CollisionPolygon2D.shape.points[0].x *= upgrade_factor
+	#$Net/Hitbox/CollisionPolygon2D.shape.points[1].x *= upgrade_factor
 	#airhorn_cooldown *= upgrade_factor
 	net_range_upgrade_ct += 1
 	
-	print($Net/Hitbox/CollisionShape2D.shape.points[0].x)
+	print($Net/Hitbox/CollisionPolygon2D.shape.points[0].x)
 
 
 func swing_net() -> void:
 	state = States.NET
-	$Net/Hitbox/CollisionShape2D.disabled = false
+	$Net/Hitbox/CollisionPolygon2D.disabled = false
 	var net_swing_timer := get_tree().create_timer(net_duration)
 	net_swing_timer.timeout.connect(_on_net_swing_end)
 	
@@ -156,7 +166,7 @@ func swing_net() -> void:
 
 func _on_net_swing_end() -> void:
 	state = States.NOTHING
-	$Net/Hitbox/CollisionShape2D.disabled = true
+	$Net/Hitbox/CollisionPolygon2D.disabled = true
 
 func _on_net_cooldown_end() -> void:
 	net_ready = true

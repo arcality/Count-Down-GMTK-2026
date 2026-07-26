@@ -64,6 +64,7 @@ func landing(delta: float) -> void:
 
 	# switch to GROUNDED when destination is reached
 	if position.is_equal_approx(landing_destination):
+		
 		state = States.GROUNDED
 
 

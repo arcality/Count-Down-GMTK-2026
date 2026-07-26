@@ -15,6 +15,9 @@ var is_playing_level: bool = false
 
 var scared_bird_ct: int = 0
 
+# time alotted to get beneath the flame diverters
+var warning_window_length = 10
+
 enum GameState {
 	PLAYING_LEVEL,
 	TITLE_SCREEN
@@ -71,6 +74,7 @@ func end_level() -> void:
 	
 func display_stats_screen() -> void:
 	# update stats
+	$StatsScreen.set_marmot_casualties(%Player.state==%Player.States.PROTECTED)
 	$StatsScreen.set_birds_saved(scared_bird_ct)
 	$StatsScreen.clear_upgrades()
 	
@@ -105,7 +109,7 @@ func display_stats_screen() -> void:
 
 
 func spawn_bird() -> void:
-	if timer.time_left <= 10:
+	if timer.time_left <= warning_window_length:
 		return
 	var new_bird: Bird = bird_scene.instantiate()
 	if random.randi_range(0,1) == 0:
@@ -169,3 +173,9 @@ func _on_stats_screen_upgrade_selected(upgrade: Upgrade.Upgrades) -> void:
 			%Player.upgrade_speed()
 	#%Player.upgrade_net_range()
 	print("Upgrade Selected: "+Upgrade.upgrade_data[upgrade]["text"])
+
+
+func _on_launch_pad_on_door_entrance_body_entered(body: Node2D) -> void:
+	if $Timer.time_left < warning_window_length and body is Player:
+		%Player.protect()
+		

@@ -45,6 +45,12 @@ collision_mask = 10
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=619971655]
 shape = SubResource("CircleShape2D_h0ex0")
 
+[node name="GroundedArea2D" type="Area2D" parent="." unique_id=904295607]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GroundedArea2D" unique_id=3969954]
+shape = SubResource("CircleShape2D_h0ex0")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=677567925]
 texture_filter = 2
 texture = ExtResource("2_3po83")

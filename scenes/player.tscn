@@ -1,23 +1,24 @@
 [gd_scene format=3 uid="uid://cb3dertjap4to"]
 
 [ext_resource type="Script" uid="uid://e7oa8p5pnjqq" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://dkjjkf1pbj1ok" path="res://assets/art/player/marmot.png" id="2_g2els"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h0ex0"]
-radius = 2.0
+radius = 11.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_u8vuu"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_h0ex0"]
-points = PackedVector2Array(10, 7, 10, -7, 0, 0)
+points = PackedVector2Array(30, 7, 30, -7, 0, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3vyb7"]
 radius = 75.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ixln"]
-radius = 37.93
+radius = 40.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1211655326]
-collision_layer = 3
+collision_layer = 2
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1491246741]
@@ -33,7 +34,12 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Net/Hitbox" unique_id=941080575]
+visible = false
 shape = SubResource("ConvexPolygonShape2D_h0ex0")
+disabled = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Net/Hitbox" unique_id=1633158455]
+polygon = PackedVector2Array(30, 7, 30, -7, 0, 0)
 disabled = true
 
 [node name="Airhorn" type="Node2D" parent="." unique_id=1187505450]
@@ -55,5 +61,9 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Flail/Hitbox" unique_id=1290859443]
 shape = SubResource("CircleShape2D_5ixln")
 disabled = true
+
+[node name="TempSprite2D" type="Sprite2D" parent="." unique_id=983288580]
+texture_filter = 1
+texture = ExtResource("2_g2els")
 
 [connection signal="area_entered" from="Net/Hitbox" to="." method="_on_net_area_entered"]
