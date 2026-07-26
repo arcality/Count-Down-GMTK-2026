@@ -188,6 +188,15 @@ func upgrade_net_range() -> void:
 
 
 func swing_net() -> void:
+	if facing_direction.y > 0:
+		$AnimatedSprite2D.play("idle_front")
+	elif facing_direction.y < 0:
+		$AnimatedSprite2D.play("idle_back")
+	elif facing_direction.x > 0:
+		$AnimatedSprite2D.flip_h = true
+		$AnimatedSprite2D.play("idle_side")
+	elif facing_direction.x < 0:
+		$AnimatedSprite2D.play("idle_side")
 	state = States.NET
 	$Net/Hitbox/CollisionPolygon2D.disabled = false
 	var net_swing_timer := get_tree().create_timer(net_duration)
