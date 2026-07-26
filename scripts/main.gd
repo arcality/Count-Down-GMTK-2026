@@ -55,8 +55,10 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("debug_button"):
 			spawn_bird()
 		#print(Time.get_ticks_msec()*60)
-		var curr_time = Time.get_ticks_msec()*60
+		var curr_time = (Time.get_ticks_msec()*60/1000)
+		#print(curr_time)
 		if floor(curr_time) > prev_second:
+			print(curr_time)
 			prev_second = curr_time
 			if random.randi_range(0,100) <= fire_test_number-1:
 				spawn_bird()
