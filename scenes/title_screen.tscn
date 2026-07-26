@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://bcgk1ejtddljj"]
 
 [ext_resource type="Script" uid="uid://b04grcdcjojvd" path="res://scripts/title_screen.gd" id="1_fgkus"]
+[ext_resource type="FontFile" uid="uid://dpcg32dfujs37" path="res://assets/fonts/DePixelHalbfett.ttf" id="2_sa3yf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tbgi4"]
-font_size = 27
+font = ExtResource("2_sa3yf")
+font_size = 20
 
 [node name="Title Screen" type="CanvasLayer" unique_id=118377000]
 script = ExtResource("1_fgkus")

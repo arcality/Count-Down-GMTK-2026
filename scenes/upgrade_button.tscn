@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://ccjam3eowfd5s"]
 
+[ext_resource type="FontFile" uid="uid://dpcg32dfujs37" path="res://assets/fonts/DePixelHalbfett.ttf" id="1_mdhk6"]
 [ext_resource type="Script" uid="uid://w07mg1b4pbcj" path="res://upgrade_button.gd" id="1_vd32k"]
 
 [node name="UpgradeButton" type="Button" unique_id=828683781]
@@ -7,6 +8,7 @@ custom_minimum_size = Vector2(100, 0)
 custom_maximum_size = Vector2(100, -1)
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_fonts/font = ExtResource("1_mdhk6")
 theme_override_font_sizes/font_size = 10
 autowrap_mode = 2
 script = ExtResource("1_vd32k")

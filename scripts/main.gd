@@ -52,6 +52,7 @@ func _process(_delta: float) -> void:
 	if game_state == GameState.PLAYING_LEVEL:
 		if Input.is_action_just_pressed("debug_button"):
 			spawn_bird()
+		print(Time.get_ticks_msec())
 		if random.randi_range(0,100) <= fire_test_number-1:
 			spawn_bird()
 			
