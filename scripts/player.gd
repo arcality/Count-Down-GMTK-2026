@@ -46,15 +46,27 @@ var state: States = States.NOTHING
 
 func _process(delta: float) -> void:
 	$AnimatedSprite2D.flip_h = false
-	if facing_direction.x == 1:
-		$AnimatedSprite2D.flip_h = true
-		$AnimatedSprite2D.play("idle_side")
-	elif facing_direction.x == -1:
-		$AnimatedSprite2D.play("idle_side")
-	elif facing_direction.y == 1:
-		$AnimatedSprite2D.play("idle_front")
-	elif facing_direction.y == -1:
-		$AnimatedSprite2D.play("idle_back")
+	if direction == Vector2(0,0):
+		if facing_direction.y > 0:
+			$AnimatedSprite2D.play("idle_front")
+		elif facing_direction.y < 0:
+			$AnimatedSprite2D.play("idle_back")
+		elif facing_direction.x > 0:
+			$AnimatedSprite2D.flip_h = true
+			$AnimatedSprite2D.play("idle_side")
+		elif facing_direction.x < 0:
+			$AnimatedSprite2D.play("idle_side")
+	else:
+		if facing_direction.y > 0:
+			$AnimatedSprite2D.play("run_front")
+		elif facing_direction.y < 0:
+			$AnimatedSprite2D.play("run_back")
+		elif facing_direction.x > 0:
+			$AnimatedSprite2D.flip_h = true
+			$AnimatedSprite2D.play("run_side")
+		elif facing_direction.x < 0:
+			$AnimatedSprite2D.play("run_side")
+	print(facing_direction)
 
 func _physics_process(delta: float) -> void:
 	
