@@ -47,14 +47,19 @@ func _ready() -> void:
 	
 	pass # Replace with function body.
 
+
+var prev_second = 0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if game_state == GameState.PLAYING_LEVEL:
 		if Input.is_action_just_pressed("debug_button"):
 			spawn_bird()
-		print(Time.get_ticks_msec())
-		if random.randi_range(0,100) <= fire_test_number-1:
-			spawn_bird()
+		#print(Time.get_ticks_msec()*60)
+		var curr_time = Time.get_ticks_msec()*60
+		if floor(curr_time) > prev_second:
+			prev_second = curr_time
+			if random.randi_range(0,100) <= fire_test_number-1:
+				spawn_bird()
 			
 	
 	time_display.text = str(int(ceil(timer.time_left)))
