@@ -226,6 +226,7 @@ func _on_net_cooldown_end() -> void:
 
 func use_airhorn() -> void:
 	$AnimatedSprite2D.play("airhorn")
+	$AudioStreamPlayer2D.play()
 	state = States.AIRHORN
 	$Airhorn/Hitbox/CollisionShape2D.disabled = false
 	var airhorn_use_timer := get_tree().create_timer(airhorn_duration)
