@@ -56,7 +56,7 @@ offset_top = 227.0
 offset_right = 198.0
 offset_bottom = 258.0
 focus_mode = 0
-text = "Main Menu"
+text = "Title Screen"
 
 [node name="UpgradeHBox" type="HBoxContainer" parent="." unique_id=1529446256]
 anchors_preset = 8
