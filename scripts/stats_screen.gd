@@ -60,6 +60,14 @@ func game_over() -> void:
 	$SelectAnUpgradeLabel.hide()
 	$RetryButton.text = "Retry"
 
+
+func init_stats_screen() -> void:
+	$GameOverLabel.hide()
+	$UpgradeHBox.show()
+	$SelectAnUpgradeLabel.show()
+	$RetryButton.text = "Next Round"
+
+
 func _on_retry_button_button_down() -> void:
 	emit_signal("retry_button_down")
 

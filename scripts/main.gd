@@ -111,6 +111,7 @@ func display_stats_screen() -> void:
 	if bird_tally >= casualty_limit:
 		$Player.init_values()
 		$StatsScreen.game_over()
+		total_casualties = 0
 	else:
 		var possible_upgrades := Upgrade.Upgrades.values()
 		possible_upgrades.shuffle()
@@ -186,6 +187,7 @@ func _on_timer_timeout() -> void:
 
 
 func _on_stats_screen_retry_button_down() -> void:
+	$StatsScreen.init_stats_screen()
 	start_level()
 	var temp_tween = get_tree().create_tween()
 	temp_tween.tween_property($StatsScreen, "offset", Vector2(0,-window_height), 1.0)
