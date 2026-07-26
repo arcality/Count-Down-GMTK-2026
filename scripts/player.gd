@@ -61,18 +61,22 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("flail") and flail_ready and state == States.NOTHING:
 		flail()
 	
-	if direction:
-		#velocity.x = direction.x * SPEED
-		#velocity.y = direction.y * SPEED
-		#velocity.x = move_toward(velocity.x, direction.x * SPEED, ACCELERATION);
-		#velocity.y = move_toward(velocity.y, direction.y * SPEED, ACCELERATION);
-		velocity.x += direction.x * ACCELERATION * delta
-		velocity.y += direction.y * ACCELERATION * delta
-	#else:
-	#velocity.x = move_toward(velocity.x, 0, DECELERATION)
-	#velocity.y = move_toward(velocity.y, 0, DECELERATION)
-	velocity.x = velocity.x/1.17
-	velocity.y = velocity.y/1.17
+	if state != States.AIRHORN:
+		if direction:
+			#velocity.x = direction.x * SPEED
+			#velocity.y = direction.y * SPEED
+			#velocity.x = move_toward(velocity.x, direction.x * SPEED, ACCELERATION);
+			#velocity.y = move_toward(velocity.y, direction.y * SPEED, ACCELERATION);
+			velocity.x += direction.x * ACCELERATION * delta
+			velocity.y += direction.y * ACCELERATION * delta
+		#else:
+		#velocity.x = move_toward(velocity.x, 0, DECELERATION)
+		#velocity.y = move_toward(velocity.y, 0, DECELERATION)
+		velocity.x = velocity.x/1.17
+		velocity.y = velocity.y/1.17
+	else:
+		velocity = Vector2(0,0)
+		
 
 	if can_move:
 		move_and_slide()
@@ -104,8 +108,8 @@ func upgrade_airhorn_cooldown() -> void:
 	
 
 func upgrade_airhorn_radius() -> void:
-	if airhorn_cooldown_upgrade_ct == 3:
-		print("Already Min Airhorn Cooldown")
+	if airhorn_radius_upgrade_ct == 3:
+		print("Already Max Airhorn Radius")
 		return
 	var upgrade_factor: float = 1.3
 	$Airhorn/Hitbox/CollisionShape2D.shape.radius *= upgrade_factor
@@ -113,6 +117,31 @@ func upgrade_airhorn_radius() -> void:
 	airhorn_radius_upgrade_ct += 1
 	
 	print($Airhorn/Hitbox/CollisionShape2D.shape.radius)
+	
+
+func upgrade_flail_radius() -> void:
+	if flail_radius_upgrade_ct == 3:
+		print("Already Max Flail Radius")
+		return
+	var upgrade_factor: float = 1.3
+	$Flail/Hitbox/CollisionShape2D.shape.radius *= upgrade_factor
+	#airhorn_cooldown *= upgrade_factor
+	flail_radius_upgrade_ct += 1
+	
+	print($Flail/Hitbox/CollisionShape2D.shape.radius)
+	
+
+func upgrade_net_range() -> void:
+	if net_range_upgrade_ct == 3:
+		print("Already Max Net Range")
+		return
+	var upgrade_factor: float = 1.1
+	$Net/Hitbox/CollisionShape2D.shape.points[0].x *= upgrade_factor
+	$Net/Hitbox/CollisionShape2D.shape.points[1].x *= upgrade_factor
+	#airhorn_cooldown *= upgrade_factor
+	net_range_upgrade_ct += 1
+	
+	print($Net/Hitbox/CollisionShape2D.shape.points[0].x)
 
 
 func swing_net() -> void:

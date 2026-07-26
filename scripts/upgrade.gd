@@ -5,7 +5,7 @@ enum Upgrades {
 	AIRHORN_RADIUS,
 	BATON_SIZE,
 	NET_DISTANCE,
-	NET_COOLDOWN,
+	#NET_COOLDOWN,
 	SPEED
 }
 
@@ -14,7 +14,7 @@ const upgrade_data: Array = [
 	{"text":"Louder Airhorn", "property":"airhorn_radius"},
 	{"text":"More Menacing Baton", "property":"flail_radius"},
 	{"text":"Longer Net", "property":"net_range"},
-	{"text":"Shorter Net Cooldown", "property":"net_cooldown"},
+	#{"text":"Shorter Net Cooldown", "property":"net_cooldown"},
 	{"text":"Speed", "property":"acceleration"}
 ]
 

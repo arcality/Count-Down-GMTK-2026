@@ -73,8 +73,18 @@ func display_stats_screen() -> void:
 	# update stats
 	$StatsScreen.set_birds_saved(scared_bird_ct)
 	$StatsScreen.clear_upgrades()
-	for n in 3:
-		$StatsScreen.add_upgrade_choice(Upgrade.Upgrades.values().pick_random())
+	
+	var possible_upgrades := Upgrade.Upgrades.values().slice(0,3)
+	if %Player.airhorn_cooldown_upgrade_ct >= 3:
+		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.AIRHORN_COOLDOWN))
+	if %Player.airhorn_radius_upgrade_ct >= 3:
+		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.AIRHORN_RADIUS))
+	
+	#var possible_upgrades := possible_upgrades.slice(0,2)
+	for u in possible_upgrades:
+		$StatsScreen.add_upgrade_choice(u)
+	#for n in 3:
+		#$StatsScreen.add_upgrade_choice(Upgrade.Upgrades.values().pick_random())
 	
 	# stats screen bounce animation
 	var temp_tween = get_tree().create_tween()
@@ -137,5 +147,16 @@ func _on_title_screen_play_button_down() -> void:
 
 func _on_stats_screen_upgrade_selected(upgrade: Upgrade.Upgrades) -> void:
 	print(upgrade)
-	%Player.upgrade_airhorn_radius()
+	match upgrade:
+		Upgrade.Upgrades.AIRHORN_COOLDOWN:
+			%Player.upgrade_airhorn_cooldown()
+		Upgrade.Upgrades.AIRHORN_RADIUS:
+			%Player.upgrade_airhorn_radius()
+		Upgrade.Upgrades.BATON_SIZE:
+			%Player.upgrade_flail_radius()
+		Upgrade.Upgrades.NET_DISTANCE:
+			%Player.upgrade_net_range()
+		Upgrade.Upgrades.SPEED:
+			%Player.upgrade_speed()
+	%Player.upgrade_net_range()
 	print("Upgrade Selected: "+Upgrade.upgrade_data[upgrade]["text"])
