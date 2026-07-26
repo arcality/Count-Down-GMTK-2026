@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://7c3wg6emqx10"]
+
+[ext_resource type="Script" uid="uid://cxnv1dqq1ms17" path="res://startle_particle.gd" id="1_m1fuf"]
+[ext_resource type="Texture2D" uid="uid://deflmlfvce6vu" path="res://assets/art/particles/startle.png" id="2_cidf3"]
+
+[node name="StartleParticle" type="Node2D" unique_id=1047846780]
+script = ExtResource("1_m1fuf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=68609498]
+texture_filter = 1
+texture = ExtResource("2_cidf3")

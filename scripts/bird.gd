@@ -5,6 +5,7 @@ const RETREAT_SPEED = 200
 
 @onready var window_width = get_viewport().get_visible_rect().size.x
 @onready var window_height  = get_viewport().get_visible_rect().size.y
+@onready var startle_particle_scene = preload("res://scenes/startle_particle.tscn")
 
 var random = RandomNumberGenerator.new()
 
@@ -16,7 +17,8 @@ var bounds: Area2D
 enum States {
 	LANDING,
 	GROUNDED,
-	FLYING_AWAY
+	FLYING_AWAY,
+	SLEEPING
 }
 
 var spawn_side = 0
@@ -78,24 +80,26 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	
+	
+	
 	if state == States.LANDING:
-		if position.x < 125:
-			z_index = 2
+		if position.y < 125:
+			$Sprite2D.z_index = 2
 		else:
-			z_index = 5
+			$Sprite2D.z_index = 5
 		landing(delta)
-		
 		#if Time.get_ticks_msec() % 1000 == 0:
 			#$FlappingSound.play()
 	elif state == States.GROUNDED:
-		z_index = 2
+		if position.y < 125:
+			$Sprite2D.z_index = 2
+		else:
+			$Sprite2D.z_index = 5
 		grounded(delta)
 	elif state == States.FLYING_AWAY:
-		if position.x < 125:
-			z_index = 2
-		else:
-			z_index = 5
 		flying_away(delta)
+	elif state == States.SLEEPING:
+		sleeping(delta)
 
 func _on_flap_end() -> void:
 	if state != States.GROUNDED:
@@ -114,11 +118,15 @@ func landing(delta: float) -> void:
 	# switch to GROUNDED when destination is reached
 	if position.is_equal_approx(landing_destination):
 		
-		state = States.GROUNDED
+		switch_to_grounded()
 
 
 
 
+func switch_to_grounded() -> void:
+	state = States.GROUNDED
+	var sleepy_timer = get_tree().create_timer(10)
+	sleepy_timer.timeout.connect(_on_sleepy_timer_timeout)
 
 func grounded(_delta: float) -> void:
 	if not hopping and random.randi_range(0,100) < 10:
@@ -126,9 +134,27 @@ func grounded(_delta: float) -> void:
 		
 		#var hop_tween = get_tree().create_tween()
 
+func _on_sleepy_timer_timeout() -> void:
+	switch_to_sleeping()
+
+func switch_to_sleeping() -> void:
+	state = States.SLEEPING
+
+func sleeping(_delta: float) -> void:
+	pass
+
 
 func _on_hop_end() -> void:
 	hopping = false
+
+
+
+func switch_to_flying_away() -> void:
+	if position.y < 125:
+		$Sprite2D.z_index = 2
+	else:
+		$Sprite2D.z_index = 5
+	state = States.FLYING_AWAY
 
 func flying_away(delta: float) -> void:
 	#print(position)
@@ -141,10 +167,13 @@ func flying_away(delta: float) -> void:
 	
 
 func scare() -> void:
-	state = States.FLYING_AWAY
+	switch_to_flying_away()
 	flap_speed = 0.13
 	scared.emit()
-	
+
+func startle() -> void:
+	add_child(startle_particle_scene.instantiate())
+	switch_to_grounded()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if state == States.GROUNDED and body is Player:
@@ -152,6 +181,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		#queue_free()
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	if state == States.SLEEPING:
+		startle()
+		return
 	if state != States.FLYING_AWAY and area.get_parent().get_parent() is Player:
 		scare()
 

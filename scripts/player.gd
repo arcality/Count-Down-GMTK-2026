@@ -51,26 +51,28 @@ func _process(delta: float) -> void:
 		z_index = 4
 	
 	$AnimatedSprite2D.flip_h = false
-	if direction == Vector2(0,0):
-		if facing_direction.y > 0:
-			$AnimatedSprite2D.play("idle_front")
-		elif facing_direction.y < 0:
-			$AnimatedSprite2D.play("idle_back")
-		elif facing_direction.x > 0:
-			$AnimatedSprite2D.flip_h = true
-			$AnimatedSprite2D.play("idle_side")
-		elif facing_direction.x < 0:
-			$AnimatedSprite2D.play("idle_side")
-	else:
-		if facing_direction.y > 0:
-			$AnimatedSprite2D.play("run_front")
-		elif facing_direction.y < 0:
-			$AnimatedSprite2D.play("run_back")
-		elif facing_direction.x > 0:
-			$AnimatedSprite2D.flip_h = true
-			$AnimatedSprite2D.play("run_side")
-		elif facing_direction.x < 0:
-			$AnimatedSprite2D.play("run_side")
+	
+	if state == States.NOTHING:
+		if direction == Vector2(0,0):
+			if facing_direction.y > 0:
+				$AnimatedSprite2D.play("idle_front")
+			elif facing_direction.y < 0:
+				$AnimatedSprite2D.play("idle_back")
+			elif facing_direction.x > 0:
+				$AnimatedSprite2D.flip_h = true
+				$AnimatedSprite2D.play("idle_side")
+			elif facing_direction.x < 0:
+				$AnimatedSprite2D.play("idle_side")
+		else:
+			if facing_direction.y > 0:
+				$AnimatedSprite2D.play("run_front")
+			elif facing_direction.y < 0:
+				$AnimatedSprite2D.play("run_back")
+			elif facing_direction.x > 0:
+				$AnimatedSprite2D.flip_h = true
+				$AnimatedSprite2D.play("run_side")
+			elif facing_direction.x < 0:
+				$AnimatedSprite2D.play("run_side")
 
 
 func _physics_process(delta: float) -> void:
@@ -94,7 +96,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("flail") and flail_ready and state == States.NOTHING:
 			flail()
 	
-	if state != States.AIRHORN and state != States.PROTECTED:
+	if state != States.AIRHORN and state != States.PROTECTED and state != States.FLAIL:
 		if direction:
 			#velocity.x = direction.x * SPEED
 			#velocity.y = direction.y * SPEED
@@ -204,6 +206,7 @@ func _on_net_cooldown_end() -> void:
 
 
 func use_airhorn() -> void:
+	$AnimatedSprite2D.play("airhorn")
 	state = States.AIRHORN
 	$Airhorn/Hitbox/CollisionShape2D.disabled = false
 	var airhorn_use_timer := get_tree().create_timer(airhorn_duration)
@@ -222,6 +225,7 @@ func _on_airhorn_cooldown_end() -> void:
 	
 
 func flail() -> void:
+	$AnimatedSprite2D.play("baton")
 	state = States.FLAIL
 	$Flail/Hitbox/CollisionShape2D.disabled = false
 	var flail_timer := get_tree().create_timer(flail_duration)
