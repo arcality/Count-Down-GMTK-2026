@@ -25,6 +25,8 @@ enum GameState {
 
 var game_state = GameState.TITLE_SCREEN
 
+var total_bird_casualties
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#start_level()
@@ -47,8 +49,8 @@ func _process(_delta: float) -> void:
 	if game_state == GameState.PLAYING_LEVEL:
 		if Input.is_action_just_pressed("debug_button"):
 			spawn_bird()
-		#if random.randi_range(0,100) == 0:
-			#spawn_bird()
+		if random.randi_range(0,100) == 0:
+			spawn_bird()
 			
 	
 	time_display.text = str(int(ceil(timer.time_left)))
@@ -66,16 +68,24 @@ func start_level() -> void:
 	for bird in get_tree().get_nodes_in_group("birds"):
 		bird.queue_free()
 	
+	for n in 7:
+		spawn_ground_bird()
+	
 
 func end_level() -> void:
+	
 	display_stats_screen()
 	%Player.can_move = false
 	
 	
 func display_stats_screen() -> void:
 	# update stats
+	var bird_tally := 0
+	for bird in get_tree().get_nodes_in_group("birds"):
+		bird_tally += 1
+		
 	$StatsScreen.set_marmot_casualties(%Player.state==%Player.States.PROTECTED)
-	$StatsScreen.set_birds_saved(scared_bird_ct)
+	$StatsScreen.set_bird_casualties(bird_tally)
 	$StatsScreen.clear_upgrades()
 	
 	var possible_upgrades := Upgrade.Upgrades.values()
@@ -87,8 +97,8 @@ func display_stats_screen() -> void:
 		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.AIRHORN_RADIUS))
 	if %Player.flail_radius_upgrade_ct >= 3:
 		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.BATON_SIZE))
-	if %Player.net_range_upgrade_ct >= 3:
-		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.NET_DISTANCE))
+	#if %Player.net_range_upgrade_ct >= 3:
+		#possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.NET_DISTANCE))
 	if %Player.speed_upgrade_ct >= 3:
 		possible_upgrades.remove_at(possible_upgrades.find(Upgrade.Upgrades.SPEED))
 	
@@ -106,7 +116,13 @@ func display_stats_screen() -> void:
 	temp_tween.tween_property($StatsScreen, "offset", Vector2(0,0), 2.0)
 	
 
-
+func spawn_ground_bird() -> void:
+	var new_bird: Bird = bird_scene.instantiate()
+	new_bird.spawn_side = -1
+	new_bird.bounds = $LaunchPad.bounds
+	new_bird.scared.connect(_on_bird_scared)
+		
+	add_child(new_bird)
 
 func spawn_bird() -> void:
 	if timer.time_left <= warning_window_length:
@@ -176,8 +192,8 @@ func _on_stats_screen_upgrade_selected(upgrade: Upgrade.Upgrades) -> void:
 			%Player.upgrade_airhorn_radius()
 		Upgrade.Upgrades.BATON_SIZE:
 			%Player.upgrade_flail_radius()
-		Upgrade.Upgrades.NET_DISTANCE:
-			%Player.upgrade_net_range()
+		#Upgrade.Upgrades.NET_DISTANCE:
+			#%Player.upgrade_net_range()
 		Upgrade.Upgrades.SPEED:
 			%Player.upgrade_speed()
 	#%Player.upgrade_net_range()

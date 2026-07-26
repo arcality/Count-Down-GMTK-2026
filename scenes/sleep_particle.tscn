@@ -1,5 +1,11 @@
 [gd_scene format=3 uid="uid://70dn66r7n3an"]
 
+[ext_resource type="Script" uid="uid://cu4ae4qav68kc" path="res://scenes/sleep_particle.gd" id="1_yi8gt"]
+[ext_resource type="Texture2D" uid="uid://b527fn5jt8mxa" path="res://assets/art/particles/sleep.png" id="2_monv7"]
+
 [node name="sleep_particle" type="Node2D" unique_id=1187254021]
+script = ExtResource("1_yi8gt")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1014809632]
+z_index = 10
+texture = ExtResource("2_monv7")

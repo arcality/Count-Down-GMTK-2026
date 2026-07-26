@@ -41,8 +41,8 @@ func _on_upgrade_button_down(upgrade: Upgrade.Upgrades) -> void:
 
 
 
-func set_birds_saved(bird_ct: int) -> void:
-	$BirdsSavedLabel.text = "Birds Saved: " + str(bird_ct)
+func set_bird_casualties(bird_ct: int) -> void:
+	$BirdCasualtiesLabel.text = "Bird Casualties: " + str(bird_ct)
 
 func set_marmot_casualties(protected: bool) -> void:
 	if protected:

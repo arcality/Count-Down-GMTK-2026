@@ -1,11 +1,13 @@
 [gd_scene format=4 uid="uid://c0aygdx7wqldr"]
 
 [ext_resource type="Script" uid="uid://dtwca8os0hyyo" path="res://scripts/bird.gd" id="1_kqhkv"]
-[ext_resource type="Texture2D" uid="uid://c3tf4jv3k6yfg" path="res://assets/art/bird.png" id="2_3po83"]
 [ext_resource type="AudioStream" uid="uid://c8gmvvtilxj5d" path="res://assets/audio/birdsquawk1.ogg" id="3_bdh3x"]
 [ext_resource type="AudioStream" uid="uid://cdkn6ua5sjg2d" path="res://assets/audio/birdsquawk2.ogg" id="4_jggmu"]
 [ext_resource type="AudioStream" uid="uid://c1rsnfjclui4w" path="res://assets/audio/birdsquawk3.ogg" id="5_hrcfq"]
 [ext_resource type="AudioStream" uid="uid://byeuo6f3q8xyp" path="res://assets/audio/birdsquawk4.ogg" id="6_ehebh"]
+[ext_resource type="Texture2D" uid="uid://dlrbs7umswcx7" path="res://assets/art/sprites/bird/bird_fly.png" id="7_jggmu"]
+[ext_resource type="Texture2D" uid="uid://bvqkt5oh6sn80" path="res://assets/art/sprites/bird/bird_idle.png" id="8_ehebh"]
+[ext_resource type="Texture2D" uid="uid://gus36nrar3wa" path="res://assets/art/sprites/bird/bird_pick_feathers.png" id="9_qavic"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h0ex0"]
 
@@ -35,6 +37,178 @@ stream_1/stream = ExtResource("4_jggmu")
 stream_2/stream = ExtResource("5_hrcfq")
 stream_3/stream = ExtResource("6_ehebh")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrcfq"]
+atlas = ExtResource("7_jggmu")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ehebh"]
+atlas = ExtResource("7_jggmu")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifiym"]
+atlas = ExtResource("8_ehebh")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_21s24"]
+atlas = ExtResource("8_ehebh")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wujcm"]
+atlas = ExtResource("8_ehebh")
+region = Rect2(24, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ai2xt"]
+atlas = ExtResource("8_ehebh")
+region = Rect2(36, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e7a8l"]
+atlas = ExtResource("8_ehebh")
+region = Rect2(48, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlfkm"]
+atlas = ExtResource("8_ehebh")
+region = Rect2(60, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lm7xv"]
+atlas = ExtResource("8_ehebh")
+region = Rect2(72, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6ysx"]
+atlas = ExtResource("8_ehebh")
+region = Rect2(84, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eaix5"]
+atlas = ExtResource("8_ehebh")
+region = Rect2(96, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dwk3s"]
+atlas = ExtResource("8_ehebh")
+region = Rect2(108, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_87ggw"]
+atlas = ExtResource("8_ehebh")
+region = Rect2(120, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2c7mi"]
+atlas = ExtResource("8_ehebh")
+region = Rect2(132, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5r7ph"]
+atlas = ExtResource("9_qavic")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a5afk"]
+atlas = ExtResource("9_qavic")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eovam"]
+atlas = ExtResource("9_qavic")
+region = Rect2(24, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6pl8"]
+atlas = ExtResource("9_qavic")
+region = Rect2(36, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c14nc"]
+atlas = ExtResource("9_qavic")
+region = Rect2(48, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4j1ko"]
+atlas = ExtResource("9_qavic")
+region = Rect2(60, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6ds4"]
+atlas = ExtResource("9_qavic")
+region = Rect2(72, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewl86"]
+atlas = ExtResource("9_qavic")
+region = Rect2(84, 0, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bdh3x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrcfq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ehebh")
+}],
+"loop": 1,
+"name": &"fly",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifiym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_21s24")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wujcm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ai2xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e7a8l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlfkm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lm7xv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6ysx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eaix5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dwk3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_87ggw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2c7mi")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5r7ph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a5afk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eovam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6pl8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c14nc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4j1ko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6ds4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewl86")
+}],
+"loop": 1,
+"name": &"pick_feathers",
+"speed": 5.0
+}]
+
 [node name="Bird" type="Node2D" unique_id=1378970072]
 script = ExtResource("1_kqhkv")
 
@@ -51,10 +225,6 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GroundedArea2D" unique_id=3969954]
 shape = SubResource("CircleShape2D_h0ex0")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=677567925]
-texture_filter = 2
-texture = ExtResource("2_3po83")
-
 [node name="FlappingSound" type="AudioStreamPlayer2D" parent="." unique_id=73784802]
 stream = SubResource("AudioStreamRandomizer_h0ex0")
 volume_db = 2.43
@@ -63,6 +233,10 @@ max_polyphony = 4
 
 [node name="CatchSound" type="AudioStreamPlayer2D" parent="." unique_id=458282332]
 stream = SubResource("AudioStreamRandomizer_3po83")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=428280399]
+sprite_frames = SubResource("SpriteFrames_bdh3x")
+animation = &"fly"
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

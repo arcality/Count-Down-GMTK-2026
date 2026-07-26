@@ -7,7 +7,7 @@ script = ExtResource("1_2iv5a")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=382946121]
 
-[node name="BirdsSavedLabel" type="Label" parent="." unique_id=1648751316]
+[node name="BirdCasualtiesLabel" type="Label" parent="." unique_id=1648751316]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
