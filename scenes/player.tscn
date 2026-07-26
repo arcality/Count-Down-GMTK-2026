@@ -583,7 +583,7 @@ script = ExtResource("1_3vyb7")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1236197484]
 stream = SubResource("AudioStreamRandomizer_f1ej7")
-volume_db = -2.0
+volume_db = -3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1491246741]
 position = Vector2(0, 6)

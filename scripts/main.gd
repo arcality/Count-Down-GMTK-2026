@@ -26,7 +26,7 @@ enum GameState {
 var game_state = GameState.TITLE_SCREEN
 
 var total_casualties := 0
-var casualty_limit := 20
+var casualty_limit := 10
 
 var fire_test_number = 0
 
@@ -60,6 +60,7 @@ func _process(_delta: float) -> void:
 
 
 func start_level() -> void:
+	$AudioStreamPlayer.play()
 	fire_test_number += 1
 	print(fire_test_number-1)
 	game_state = GameState.PLAYING_LEVEL
@@ -100,7 +101,7 @@ func display_stats_screen() -> void:
 	
 	$StatsScreen.clear_upgrades()
 	
-	if total_casualties >= casualty_limit:
+	if bird_tally >= casualty_limit:
 		$StatsScreen.game_over()
 	else:
 		var possible_upgrades := Upgrade.Upgrades.values()

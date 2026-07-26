@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://dpgogr80bw5ug" path="res://assets/fonts/G7_Segment_7a.ttf" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://e1q8n26qpyl4" path="res://scenes/stats_screen.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bcgk1ejtddljj" path="res://scenes/title_screen.tscn" id="6_tefeu"]
+[ext_resource type="AudioStream" uid="uid://csjg17e8kuv6r" path="res://assets/audio/traditional_marmot_music.ogg" id="7_o6xl0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5kwya"]
 font = ExtResource("4_jyhfs")
@@ -44,6 +45,10 @@ one_shot = true
 [node name="StatsScreen" parent="." unique_id=582774533 instance=ExtResource("5_tbgi4")]
 offset = Vector2(0, -270)
 transform = Transform2D(1, 0, 0, 1, 0, -270)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=773224835]
+stream = ExtResource("7_o6xl0")
+volume_db = -3.0
 
 [connection signal="play_button_down" from="Title Screen" to="." method="_on_title_screen_play_button_down"]
 [connection signal="on_door_entrance_body_entered" from="LaunchPad" to="." method="_on_launch_pad_on_door_entrance_body_entered"]
