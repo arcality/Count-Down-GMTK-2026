@@ -38,6 +38,7 @@ position = Vector2(240, 135)
 texture = SubResource("CompressedTexture2D_rf4ly")
 
 [node name="ForegroundSprite2D" type="Sprite2D" parent="." unique_id=1765793033]
+z_index = 3
 texture_filter = 1
 position = Vector2(240, 135)
 texture = SubResource("CompressedTexture2D_0xpjp")

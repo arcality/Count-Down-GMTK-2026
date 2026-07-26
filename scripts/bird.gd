@@ -79,13 +79,22 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	
 	if state == States.LANDING:
+		if position.x < 125:
+			z_index = 2
+		else:
+			z_index = 5
 		landing(delta)
 		
 		#if Time.get_ticks_msec() % 1000 == 0:
 			#$FlappingSound.play()
 	elif state == States.GROUNDED:
+		z_index = 2
 		grounded(delta)
 	elif state == States.FLYING_AWAY:
+		if position.x < 125:
+			z_index = 2
+		else:
+			z_index = 5
 		flying_away(delta)
 
 func _on_flap_end() -> void:
