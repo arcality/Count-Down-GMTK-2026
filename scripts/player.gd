@@ -6,26 +6,44 @@ const SPEED: float = 300.0
 var ACCELERATION: float = 16 * 60
 const DECELERATION: float = 4 * 60
 
+# DEFAULT VALUES
+const NET_DURATION_DEFAULT: float = 0.5
+const NET_COOLDOWN_DEFAULT: float = 1.2
+const NET_READY_DEFAULT: bool = true
+const NET_RANGE_DEFAULT: float = 10
+
+const AIRHORN_DURATION_DEFAULT: float = 1.1
+const AIRHORN_COOLDOWN_DEFAULT: float = 5.5
+const AIRHORN_READY_DEFAULT: bool = true
+
+const FLAIL_DURATION_DEFAULT: float = 0.7
+const FLAIL_COOLDOWN_DEFAULT: float = 0.2
+const FLAIL_READY_DEFAULT: bool = true
+
 var can_move: bool = false
 
-var net_duration: float = 0.5
-var net_cooldown: float = 1.2
-var net_ready: bool = true
-var net_range: float = 10
+# Net action values: 
+var net_duration: float = NET_DURATION_DEFAULT
+var net_cooldown: float = NET_COOLDOWN_DEFAULT
+var net_ready: bool = NET_READY_DEFAULT
+var net_range: float = NET_RANGE_DEFAULT
 
-var airhorn_duration: float = 1.1
-var airhorn_cooldown: float = 5.5
-var airhorn_ready: bool = true
+# Airhorn action values: 
+var airhorn_duration: float = AIRHORN_DURATION_DEFAULT
+var airhorn_cooldown: float = AIRHORN_COOLDOWN_DEFAULT
+var airhorn_ready: bool = AIRHORN_READY_DEFAULT
 
-var flail_duration: float = 0.7
-var flail_cooldown: float = 0.2
-var flail_ready: bool = true
+# Flail action values
+var flail_duration: float = FLAIL_DURATION_DEFAULT
+var flail_cooldown: float = FLAIL_COOLDOWN_DEFAULT
+var flail_ready: bool = FLAIL_READY_DEFAULT
 
 var spawn_position := Vector2(240, 210)
 
 # is never (0, 0)
 var facing_direction := Vector2(0,-1)
 var direction := Vector2(0,0)
+
 
 var speed_upgrade_ct = 0
 var airhorn_cooldown_upgrade_ct = 0
@@ -124,12 +142,30 @@ func _physics_process(delta: float) -> void:
 func respawn() -> void:
 	position = spawn_position
 	state = States.NOTHING
-	#$TempSprite2D.show()
 	$AnimatedSprite2D.show()
 	
 
+func init_values() -> void:
+	# Net action values: 
+	net_duration = NET_DURATION_DEFAULT
+	net_cooldown = NET_COOLDOWN_DEFAULT
+	net_ready = NET_READY_DEFAULT
+	net_range = NET_RANGE_DEFAULT
+
+	# Airhorn action values: 
+	airhorn_duration = AIRHORN_DURATION_DEFAULT
+	airhorn_cooldown = AIRHORN_COOLDOWN_DEFAULT
+	airhorn_ready = AIRHORN_READY_DEFAULT
+
+	# Flail action values
+	flail_duration = FLAIL_DURATION_DEFAULT
+	flail_cooldown = FLAIL_COOLDOWN_DEFAULT
+	flail_ready = FLAIL_READY_DEFAULT
+	
+	print("values reset!")
+
+
 func protect() -> void:
-	#$TempSprite2D.hide()
 	$AnimatedSprite2D.hide()
 	state = States.PROTECTED
 

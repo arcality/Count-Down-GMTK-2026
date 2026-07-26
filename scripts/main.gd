@@ -26,7 +26,7 @@ enum GameState {
 var game_state = GameState.TITLE_SCREEN
 
 var total_casualties := 0
-var casualty_limit := 10
+var casualty_limit := 15
 
 var fire_test_number = 0
 
@@ -58,7 +58,7 @@ func _process(_delta: float) -> void:
 		var curr_time = (Time.get_ticks_msec()*60/1000)
 		#print(curr_time)
 		if floor(curr_time) > prev_second:
-			print(curr_time)
+			#print(curr_time)
 			prev_second = curr_time
 			if random.randi_range(0,100) <= fire_test_number-1:
 				spawn_bird()
@@ -72,11 +72,10 @@ func start_level() -> void:
 	fire_test_number += 1
 	print(fire_test_number-1)
 	game_state = GameState.PLAYING_LEVEL
-	print("start level")
+	#print("start level")
 	
 	%Player.can_move = true
 	%Player.respawn()
-	
 	$LaunchPad.reset()
 
 	timer.start()
@@ -110,6 +109,7 @@ func display_stats_screen() -> void:
 	$StatsScreen.clear_upgrades()
 	
 	if bird_tally >= casualty_limit:
+		$Player.init_values()
 		$StatsScreen.game_over()
 	else:
 		var possible_upgrades := Upgrade.Upgrades.values()
@@ -194,20 +194,26 @@ func _on_stats_screen_retry_button_down() -> void:
 
 func _on_stats_screen_main_menu_button_down() -> void:
 	$"Title Screen".show()
+	$Player.init_values()
+	total_casualties = 0
+	$StatsScreen.set_total_casualties(total_casualties)
 	game_state = GameState.TITLE_SCREEN
 	$"Title Screen/Button".disabled = false
 	$StatsScreen.offset = Vector2(0,-window_height)
-	pass # Replace with function body.
+	
 
 
 func _on_title_screen_play_button_down() -> void:
 	$"Title Screen".hide()
+	$Player.init_values()
+	total_casualties = 0
+	$StatsScreen.set_total_casualties(total_casualties)
 	$"Title Screen/Button".disabled = true
 	start_level()
 
 
 func _on_stats_screen_upgrade_selected(upgrade: Upgrade.Upgrades) -> void:
-	print(upgrade)
+	#print(upgrade)
 	match upgrade:
 		Upgrade.Upgrades.AIRHORN_COOLDOWN:
 			%Player.upgrade_airhorn_cooldown()

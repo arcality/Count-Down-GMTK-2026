@@ -21,5 +21,5 @@ func reset() -> void:
 
 
 func _on_door_entrance_body_entered(body: Node2D) -> void:
-	print('sjdgbsgkdsnkjs')
+	#print('sjdgbsgkdsnkjs')
 	on_door_entrance_body_entered.emit(body)

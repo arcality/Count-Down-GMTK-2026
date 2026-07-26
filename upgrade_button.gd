@@ -18,5 +18,4 @@ func _process(_delta: float) -> void:
 
 
 func _on_button_down() -> void:
-	
 	upgrade_button_down.emit(upgrade)
